@@ -1,0 +1,825 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Mod id="236af578-08bc-4278-ab57-c700ab114515">
+  <Properties>
+    <Name>LOC_DARKAGE_NAME</Name>
+    <Description>LOC_DARKAGE_DESCRIPTION</Description>
+    <Teaser>LOC_DARKAGE_TEASER</Teaser>
+    <Authors>errt</Authors>
+	 <CompatibleVersions>1.2,2.0</CompatibleVersions>
+  </Properties>
+
+  <ActionCriteria>
+
+
+
+    <Criteria id="DaEvent">
+      <RuleSetInUse>RULESET_EXPANSION_2</RuleSetInUse>
+      <ConfigurationValueMatches>
+        <ConfigurationId>GAMEMODE_DA_TEST</ConfigurationId>
+        <Group>Game</Group>
+        <Value>1</Value>
+      </ConfigurationValueMatches>
+    </Criteria>
+
+
+</ActionCriteria>
+
+
+
+<FrontEndActions>
+
+  <UpdateText id="Text">
+    <Properties><LoadOrder>28000</LoadOrder></Properties>        
+    <File>Texts/DA_Text_Civilizations.sql</File>
+  </UpdateText> 
+
+  <UpdateDatabase id="GameModes">
+     <Properties><LoadOrder>1000</LoadOrder></Properties>  
+      <File>Configs/DA_GameModes.xml</File> 
+  </UpdateDatabase> 
+
+  <UpdateText id="GameModes">
+    <Properties><LoadOrder>1000</LoadOrder></Properties>        
+    <File>Configs/Texts/DA_Text_GameModes.sql</File>
+  </UpdateText> 
+
+  <UpdateIcons id="GameModes">
+    <Properties><LoadOrder>1000</LoadOrder></Properties>
+    <File>Configs/Icons/DA_Icon_GameModes.sql</File>
+  </UpdateIcons>
+
+
+</FrontEndActions>
+
+
+  <InGameActions>
+       <UpdateDatabase id="Pre">
+     <Properties><LoadOrder>28197</LoadOrder></Properties>  
+         <Criteria>PRE</Criteria>  
+        <File>DataBase/DA_PreProcess.sql</File> 
+    </UpdateDatabase> 
+
+    <UpdateDatabase id="Units">
+     <Properties><LoadOrder>28198</LoadOrder></Properties>  
+         <Criteria>UNIT</Criteria>  
+        <File>DataBase/DA_Unit_Abilities.sql</File> 
+    </UpdateDatabase> 
+
+    <UpdateDatabase id="Victories">
+     <Properties><LoadOrder>28199</LoadOrder></Properties>  
+         <Criteria>VICTORY</Criteria>  
+        <File>DataBase/DA_Victories.sql</File> 
+    </UpdateDatabase> 
+
+
+    <UpdateDatabase id="Requirements"> <!--后移-->
+     <Properties><LoadOrder>28400</LoadOrder></Properties>  
+         <Criteria>REQUIREMENT</Criteria>  
+        <File>DataBase/DA_Requirements.sql</File> 
+    </UpdateDatabase> 
+
+    <UpdateDatabase id="Requirements"> <!--大后移-->
+     <Properties><LoadOrder>99999</LoadOrder></Properties>  
+         <Criteria>POST</Criteria>  
+        <File>DataBase/DA_PostProcess.sql</File> 
+    </UpdateDatabase> 
+
+    <UpdateDatabase id="Terrains">
+     <Properties><LoadOrder>28292</LoadOrder></Properties>  
+         <Criteria>TERRAIN</Criteria>  
+        <File>DataBase/DA_Terrains_and_Features.sql</File> 
+    </UpdateDatabase> 
+ 
+    <UpdateDatabase id="Global">
+      <Properties><LoadOrder>28293</LoadOrder></Properties>  
+      <Criteria>GLOBAL</Criteria>  
+        <File>DataBase/DA_Global_Parameters.sql</File> 
+    </UpdateDatabase> 
+
+    <UpdateDatabase id="Modifiers">
+      <Properties><LoadOrder>28293</LoadOrder></Properties>  
+      <Criteria>GLOBAL</Criteria>  
+        <File>DataBase/DA_Modifiers.sql</File> 
+    </UpdateDatabase> 
+
+
+    <UpdateDatabase id="Resources">
+    <Properties><LoadOrder>28294</LoadOrder></Properties>  
+      <Criteria>RESOURCE</Criteria>  
+        <File>DataBase/DA_Resources.sql</File> 
+    </UpdateDatabase> 
+
+    <UpdateDatabase id="Buildings">
+    <Properties><LoadOrder>28295</LoadOrder></Properties>  
+      <Criteria>BUILDING</Criteria>  
+        <File>DataBase/DA_Buildings.sql</File> 
+    </UpdateDatabase> 
+
+    <UpdateDatabase id="Districts">
+    <Properties><LoadOrder>28296</LoadOrder></Properties>  
+      <Criteria>DISTRICT</Criteria>  
+        <File>DataBase/DA_Districts.sql</File> 
+    </UpdateDatabase> 
+
+    <UpdateDatabase id="Units">
+    <Properties><LoadOrder>28297</LoadOrder></Properties>  
+      <Criteria>UNIT</Criteria>  
+        <File>DataBase/DA_Units.sql</File> 
+    </UpdateDatabase> 
+
+    <UpdateDatabase id="Improvements">
+    <Properties><LoadOrder>28298</LoadOrder></Properties>  
+      <Criteria>IMPROVEMENT</Criteria>  
+        <File>DataBase/DA_Improvements.sql</File> 
+    </UpdateDatabase> 
+
+    <UpdateDatabase id="CityPolicies">
+    <Properties><LoadOrder>28299</LoadOrder></Properties>  
+      <Criteria>CITYPOLICY</Criteria>  
+        <File>DataBase/DA_City_Policies.sql</File> 
+    </UpdateDatabase> 
+
+    <UpdateDatabase id="Events">
+    <Properties><LoadOrder>28300</LoadOrder></Properties>  
+        <File>Events/DA_Event_Data.sql</File> 
+    </UpdateDatabase> 
+
+    <UpdateDatabase id="Nontifications">
+    <Properties><LoadOrder>28301</LoadOrder></Properties>
+      <Criteria>NONTIFICATION</Criteria>
+        <File>DataBase/DA_Nontifications.sql</File>
+    </UpdateDatabase>
+
+    <UpdateDatabase id="Policies">
+    <Properties><LoadOrder>28302</LoadOrder></Properties>
+      <Criteria>POLICY</Criteria>
+        <File>DataBase/DA_Policies.sql</File>
+    </UpdateDatabase>
+
+    <UpdateDatabase id="Beliefs">
+    <Properties><LoadOrder>28303</LoadOrder></Properties>
+      <Criteria>DaEvent</Criteria>
+        <File>DataBase/DA_Beliefs.sql</File>
+    </UpdateDatabase>
+
+    <UpdateDatabase id="Beliefs">
+    <Properties><LoadOrder>28303</LoadOrder></Properties>
+
+        <File>DataBase/DA_Patron_Saints.sql</File>
+    </UpdateDatabase>
+
+    <UpdateDatabase id="Religions">
+    <Properties><LoadOrder>28303</LoadOrder></Properties>
+      <Criteria>DaEvent</Criteria>
+        <File>DataBase/DA_Religions.sql</File>
+    </UpdateDatabase>
+
+    <UpdateDatabase id="Pantheons">
+    <Properties><LoadOrder>28303</LoadOrder></Properties>
+        <File>DataBase/DA_Pantheons.sql</File>
+    </UpdateDatabase>
+
+    <UpdateDatabase id="GREATPEOPLE">
+    <Properties><LoadOrder>28305</LoadOrder></Properties>
+      <Criteria>GREATPEOPLE</Criteria>
+        <File>DataBase/DA_Great_People.sql</File>
+    </UpdateDatabase>
+
+    <UpdateDatabase id="Happiness">
+    <Properties><LoadOrder>28306</LoadOrder></Properties>
+      <Criteria>HAPPINESS</Criteria>
+        <File>DataBase/DA_Happiness.sql</File>
+    </UpdateDatabase>
+
+    <UpdateDatabase id="CitizenYield">
+    <Properties><LoadOrder>28307</LoadOrder></Properties>
+        <File>DataBase/DA_Citizen_Yields.sql</File>
+    </UpdateDatabase> 
+
+    <UpdateDatabase id="Governments">
+    <Properties><LoadOrder>28308</LoadOrder></Properties>
+        <File>DataBase/DA_Governments.sql</File>
+    </UpdateDatabase> 
+
+    <UpdateDatabase id="Projects">
+    <Properties><LoadOrder>28309</LoadOrder></Properties>
+        <File>DataBase/DA_Strategic_Projects.sql</File>
+    </UpdateDatabase> 
+
+    <UpdateDatabase id="Adjacencies">
+    <Properties><LoadOrder>28309</LoadOrder></Properties>
+        <File>DataBase/DA_Adjacencies.sql</File>
+    </UpdateDatabase> 
+
+    <UpdateDatabase id="Wonders">
+    <Properties><LoadOrder>28310</LoadOrder></Properties>
+        <File>DataBase/DA_Wonders.sql</File>
+    </UpdateDatabase> 
+
+    <UpdateDatabase id="Goody">
+    <Properties><LoadOrder>28000</LoadOrder></Properties>
+        <File>DataBase/DA_GoodyHuts.sql</File>
+    </UpdateDatabase>
+
+    <UpdateDatabase id="Major">
+    <Properties><LoadOrder>29000</LoadOrder></Properties>
+        <File>MajorCivs/DA_Aztec.sql</File>
+    </UpdateDatabase>
+
+    <UpdateDatabase id="Major">
+    <Properties><LoadOrder>29000</LoadOrder></Properties>
+        <File>MajorCivs/DA_Rome.sql</File>
+    </UpdateDatabase>
+
+    <UpdateDatabase id="Civics">
+    <Properties><LoadOrder>29000</LoadOrder></Properties>
+        <File>DataBase/DA_Civics.sql</File>
+    </UpdateDatabase>
+
+    <UpdateDatabase id="Techs">
+    <Properties><LoadOrder>29000</LoadOrder></Properties>
+        <File>DataBase/DA_Techs.sql</File>
+    </UpdateDatabase>
+
+    <UpdateDatabase id="Post">
+    <Properties><LoadOrder>30000</LoadOrder></Properties>
+      <Criteria>POST</Criteria>
+        <File>MajorCivs/DA_China_Post.sql</File>
+    </UpdateDatabase>
+
+    <UpdateDatabase id="Post">
+    <Properties><LoadOrder>30000</LoadOrder></Properties>
+      <Criteria>POST</Criteria>
+        <File>MajorCivs/DA_Egypt.sql</File>
+    </UpdateDatabase>
+
+
+
+
+
+    <UpdateText id="CityPolicies">
+    <Properties><LoadOrder>28400</LoadOrder></Properties>
+      <Criteria>CITYPOLICY</Criteria>
+        <File>Texts/DA_Text_City_Policies.sql</File>
+    </UpdateText>
+
+    <UpdateText id="Nontifications">
+    <Properties><LoadOrder>28401</LoadOrder></Properties>
+      <Criteria>NONTIFICATION</Criteria>
+        <File>Texts/DA_Text_Nontifications.sql</File>
+    </UpdateText>
+
+    <UpdateText id="Buildings">
+    <Properties><LoadOrder>28402</LoadOrder></Properties>
+      <Criteria>BUILDING</Criteria>
+        <File>Texts/DA_Text_Buildings.sql</File>
+    </UpdateText>
+
+    <UpdateText id="Policies">
+    <Properties><LoadOrder>28402</LoadOrder></Properties>
+      <Criteria>POLICY</Criteria>
+        <File>Texts/DA_Text_Policies.sql</File>
+    </UpdateText>
+
+    <UpdateText id="Major">
+    <Properties><LoadOrder>28403</LoadOrder></Properties>
+      <Criteria>MAJOR</Criteria>
+        <File>Texts/DA_Text_Civilizations.sql</File>
+    </UpdateText>
+
+    <UpdateText id="Techs">
+    <Properties><LoadOrder>28403</LoadOrder></Properties>
+      <Criteria>MAJOR</Criteria>
+        <File>Texts/DA_Text_Techs.sql</File>
+    </UpdateText>
+
+    <UpdateText id="Civics">
+    <Properties><LoadOrder>28403</LoadOrder></Properties>
+      <Criteria>MAJOR</Criteria>
+        <File>Texts/DA_Text_Civics.sql</File>
+    </UpdateText>
+
+    <UpdateText id="Beliefs">
+    <Properties><LoadOrder>28403</LoadOrder></Properties>
+      <Criteria>DaEvent</Criteria>
+        <File>Texts/DA_Text_Beliefs.sql</File>
+    </UpdateText>
+    <UpdateText id="Pantheons">
+    <Properties><LoadOrder>28403</LoadOrder></Properties>
+        <File>Texts/DA_Text_Pantheons.sql</File>
+    </UpdateText>
+    <UpdateText id="Victories">
+    <Properties><LoadOrder>28404</LoadOrder></Properties>
+      <Criteria>VICTORY</Criteria>
+        <File>Texts/DA_Text_Victories.sql</File>
+    </UpdateText>
+    <UpdateText id="GREATPEOPLE">
+    <Properties><LoadOrder>28405</LoadOrder></Properties>
+      <Criteria>GREATPEOPLE</Criteria>
+        <File>Texts/DA_Text_GreatPeople.sql</File>
+    </UpdateText>  
+
+    <UpdateText id="Happiness">
+    <Properties><LoadOrder>28406</LoadOrder></Properties>
+      <Criteria>HAPPINESS</Criteria>
+        <File>Texts/DA_Text_Happiness.sql</File>
+    </UpdateText> 
+
+    <UpdateText id="Districts">
+    <Properties><LoadOrder>28407</LoadOrder></Properties>
+        <File>Texts/DA_Text_Districts.sql</File>
+    </UpdateText> 
+    <UpdateText id="CityYield">
+    <Properties><LoadOrder>28408</LoadOrder></Properties>
+        <File>Texts/DA_Text_CityYield.sql</File>
+    </UpdateText> 
+    <UpdateText id="Stragetic">
+    <Properties><LoadOrder>28409</LoadOrder></Properties>
+        <File>Texts/DA_Text_Projects.sql</File>
+    </UpdateText> 
+    <UpdateText id="Adjacencies">
+    <Properties><LoadOrder>28410</LoadOrder></Properties>
+        <File>Texts/DA_Text_Adjacencies.sql</File>
+    </UpdateText> 
+    <UpdateText id="Improvements">
+    <Properties><LoadOrder>28411</LoadOrder></Properties>
+        <File>Texts/DA_Text_Improvements.sql</File>
+    </UpdateText> 
+
+    <AddGameplayScripts id="Function">
+      <Properties>
+        <LoadOrder>28197</LoadOrder>
+      </Properties>
+      <File>lua/DA_Test.lua</File>
+    </AddGameplayScripts>
+    <AddGameplayScripts id="Function">
+      <Properties>
+        <LoadOrder>28198</LoadOrder>
+      </Properties>
+      <File>lua/DA_Misc.lua</File>
+    </AddGameplayScripts>
+
+    <AddUserInterfaces id="Function">
+      <Properties>
+        <Context>InGame</Context>
+        <LoadOrder>28199</LoadOrder>
+      </Properties>
+      <File>lua/DA_Misc_UI.xml</File>
+    </AddUserInterfaces>
+    <ImportFiles id="Function">
+      <Properties><LoadOrder>28199</LoadOrder></Properties>
+      <File>lua/DA_Misc_UI.lua</File>
+    </ImportFiles>
+
+    <AddUserInterfaces id="Aztec">
+      <Properties>
+        <Context>InGame</Context>
+        <LoadOrder>28199</LoadOrder>
+      </Properties>
+      <File>MajorCivs/DA_Aztec.xml</File>
+    </AddUserInterfaces>
+    <ImportFiles id="Function">
+      <Properties><LoadOrder>28199</LoadOrder></Properties>
+      <File>MajorCivs/DA_Aztec.lua</File>
+    </ImportFiles>
+
+    <AddUserInterfaces id="Egypt">
+      <Properties>
+        <Context>InGame</Context>
+        <LoadOrder>28199</LoadOrder>
+      </Properties>
+      <File>MajorCivs/DA_Egypt.xml</File>
+    </AddUserInterfaces>
+    <ImportFiles id="Function">
+      <Properties><LoadOrder>28199</LoadOrder></Properties>
+      <File>MajorCivs/DA_Egypt.lua</File>
+    </ImportFiles>
+
+
+    <AddGameplayScripts id="Function">
+      <Properties>
+        <LoadOrder>28200</LoadOrder>
+      </Properties>
+      <File>lua/DA_Barbarian_Conversion.lua</File>
+    </AddGameplayScripts>
+      <AddGameplayScripts id="Function">
+      <Properties>
+        <LoadOrder>28200</LoadOrder>
+      </Properties>
+      <File>lua/DA_Policies.lua</File>
+    </AddGameplayScripts>
+      <AddGameplayScripts id="Function">
+      <Properties>
+        <LoadOrder>28200</LoadOrder>
+      </Properties>
+      <File>lua/DA_GreatPeople.lua</File>
+    </AddGameplayScripts>
+      <AddGameplayScripts id="Religions">
+      <Criteria>DaEvent</Criteria>
+      <Properties>
+        <LoadOrder>28200</LoadOrder>
+      </Properties>
+      <File>lua/DA_Religion.lua</File>
+    </AddGameplayScripts>
+    <AddUserInterfaces id="Governments">
+      <Properties>
+        <Context>InGame</Context>
+        <LoadOrder>28202</LoadOrder>
+      </Properties>
+      <File>lua/DA_GovernmentQuests.xml</File>
+    </AddUserInterfaces>
+    <ImportFiles id="Governments">
+      <Properties><LoadOrder>28203</LoadOrder></Properties>
+      <File>lua/DA_GovernmentQuests.lua</File>
+    </ImportFiles>
+    <ImportFiles id="Events">
+      <Properties>
+        <LoadOrder>28201</LoadOrder>
+      </Properties>
+      <File>lua/DA_StateUtils.lua</File>
+    </ImportFiles>
+    <AddUserInterfaces id="GreatPersonCompetition">
+      <Properties>
+        <Context>InGame</Context>
+        <LoadOrder>28202</LoadOrder>
+      </Properties>
+      <File>lua/DA_GreatPerson_Competition.xml</File>
+    </AddUserInterfaces>
+    <ImportFiles id="GreatPersonCompetition">
+      <Properties><LoadOrder>28203</LoadOrder></Properties>
+      <File>lua/DA_GreatPerson_Competition.lua</File>
+    </ImportFiles>
+    <AddUserInterfaces id="Property">
+      <Properties>
+        <Context>InGame</Context>
+        <LoadOrder>28203</LoadOrder>
+      </Properties>
+      <File>lua/DA_Property_Requirements.xml</File>
+    </AddUserInterfaces>
+    <ImportFiles id="Property">
+      <Properties><LoadOrder>28203</LoadOrder></Properties>
+      <File>lua/DA_Property_Requirements.lua</File>
+    </ImportFiles>
+    <AddUserInterfaces id="Wonder">
+      <Properties>
+        <Context>InGame</Context>
+        <LoadOrder>28203</LoadOrder>
+      </Properties>
+      <File>lua/DA_Wonders.xml</File>
+    </AddUserInterfaces>
+    <ImportFiles id="Wonder">
+      <Properties><LoadOrder>28203</LoadOrder></Properties>
+      <File>lua/DA_Wonders.lua</File>
+    </ImportFiles>
+    <AddUserInterfaces id="CityPolicies">
+      <Properties>
+        <Context>InGame</Context>
+        <LoadOrder>28203</LoadOrder>
+      </Properties>
+      <File>lua/DA_City_Policies.xml</File>
+    </AddUserInterfaces>
+    <ImportFiles id="CityPolicies">
+      <Properties><LoadOrder>28203</LoadOrder></Properties>
+      <File>lua/DA_City_Policies.lua</File>
+    </ImportFiles>
+    <AddGameplayScripts id="Post">
+      <Properties>
+        <LoadOrder>28204</LoadOrder>
+      </Properties>
+      <File>lua/DA_China_Dynasty.lua</File>
+    </AddGameplayScripts>
+    <AddGameplayScripts id="Victories">
+      <Properties>
+        <LoadOrder>28204</LoadOrder>
+      </Properties>
+      <File>lua/DA_Victories.lua</File>
+    </AddGameplayScripts>
+    <AddGameplayScripts id="CityYield">
+      <Properties>
+        <LoadOrder>28205</LoadOrder>
+      </Properties>
+      <File>lua/DA_CityYield.lua</File>
+    </AddGameplayScripts>
+    <AddGameplayScripts id="Stragetic">
+      <Properties>
+        <LoadOrder>28206</LoadOrder>
+      </Properties>
+      <File>lua/DA_Resource_Cost.lua</File>
+    </AddGameplayScripts>
+    <AddGameplayScripts id="CityPolicies">
+      <Properties>
+        <LoadOrder>28207</LoadOrder>
+      </Properties>
+      <File>lua/DA_City_Policies_GP.lua</File>
+    </AddGameplayScripts>
+
+
+
+
+    <UpdateArt id="art">
+    <Properties><LoadOrder>102</LoadOrder></Properties>
+      <File>DA.dep</File>
+    </UpdateArt>
+
+    <UpdateIcons id="Nontifications">
+      <Properties><LoadOrder>101</LoadOrder></Properties>
+      <File>Icons/DA_Icon_Notifications.sql</File>
+    </UpdateIcons>
+
+    <UpdateIcons id="Stragetic">
+      <Properties><LoadOrder>102</LoadOrder></Properties>
+      <File>Icons/DA_Icon_Projects.sql</File>
+    </UpdateIcons>
+
+    <UpdateIcons id="Buildings">
+      <Properties><LoadOrder>102</LoadOrder></Properties>
+      <File>Icons/DA_Icon_Buildings.sql</File>
+    </UpdateIcons>
+
+    <UpdateIcons id="Buildings">
+      <Properties><LoadOrder>102</LoadOrder></Properties>
+      <File>Icons/DA_Icon_EventFrames.sql</File>
+    </UpdateIcons>
+
+    <UpdateIcons id="CityPolicies" >
+      <Properties><LoadOrder>103</LoadOrder></Properties>
+      <File>Icons/DA_Icon_Citypolicies.sql</File>
+    </UpdateIcons>
+
+    <UpdateIcons id="Civics" >
+      <Properties><LoadOrder>103</LoadOrder></Properties>
+      <File>Icons/DA_Icon_TechAndCivic.sql</File>
+    </UpdateIcons>
+
+    <UpdateIcons id="Pantheonss" >
+      <Properties><LoadOrder>103</LoadOrder></Properties>
+      <File>Icons/DA_Icon_Pantheons.sql</File>
+    </UpdateIcons>
+
+    <ReplaceUIScript id="UI">
+      <Properties>
+        <LoadOrder>100</LoadOrder>
+        <LuaContext>TopPanel</LuaContext>
+        <LuaReplace>lua/TopPanel_DA.lua</LuaReplace>
+      </Properties>
+    </ReplaceUIScript>
+
+    <ImportFiles id="GOV">
+    <Properties>
+        <LoadOrder>12001</LoadOrder>
+      </Properties>
+      <Items>
+    <File>lua/Replacement/GovernmentScreen.lua</File>
+    <File>lua/Replacement/GovernmentScreen.xml</File>
+      </Items>
+    </ImportFiles>
+
+    <ImportFiles id="Pantheons">
+    <Properties>
+        <LoadOrder>12002</LoadOrder>
+      </Properties>
+      <Items>
+    <File>lua/Replacement/PantheonChooser.lua</File>
+    <File>lua/Replacement/PantheonChooser.xml</File>
+      </Items>
+    </ImportFiles>
+
+    <ReplaceUIScript id="Governor">
+      <Properties>
+        <LuaContext>GovernorPanel</LuaContext>
+        <LuaReplace>lua/Replacement/GovernorPanel.lua</LuaReplace>
+      </Properties>
+    </ReplaceUIScript>
+
+    <ReplaceUIScript id="Governor">
+      <Properties>
+        <LuaContext>GovernorDetailsPanel</LuaContext>
+        <LuaReplace>lua/Replacement/GovernorDetailsPanel.lua</LuaReplace>
+      </Properties>
+    </ReplaceUIScript>
+
+    <ImportFiles id="Governor">
+      <Properties><LoadOrder>1</LoadOrder></Properties>      
+      <File>lua/Replacement/GovernorPanel.xml</File>
+      <File>lua/Replacement/GovernorPanel.lua</File>
+      <File>lua/Replacement/GovernorDetailsPanel.lua</File>
+      <File>lua/Replacement/GovernorDetailsPanel.xml</File>
+    </ImportFiles>
+
+
+    <ReplaceUIScript id="Event">
+      <Properties>
+        <LuaContext>EventPopup</LuaContext>
+        <LuaReplace>Events/lua/NEA_EventBuilder.lua</LuaReplace>
+      </Properties>
+    </ReplaceUIScript>
+
+    <ImportFiles id="Event">
+      <Properties><LoadOrder>1</LoadOrder></Properties>      
+        <File>Events/lua/NEA_EventBuilder.lua</File>
+        <File>Events/lua/EventPopup.xml</File>
+    </ImportFiles>
+
+    <AddGameplayScripts id="Function">
+      <Properties><LoadOrder>30000</LoadOrder></Properties>      
+      <File>Events/lua/NEA_GoodyEvents.lua</File>
+      <File>Events/lua/NEA_BarbEvents.lua</File>
+      <File>Events/lua/NEA_CommonEvents.lua</File>      
+    </AddGameplayScripts>
+
+    <UpdateText id="Event">
+    <Properties><LoadOrder>28409</LoadOrder></Properties>
+        <File>Events/Texts/NEA_Text_GoodyEvents.sql</File>
+    </UpdateText>
+
+
+
+    <ImportFiles id="Overwrite">
+      <Properties><LoadOrder>1</LoadOrder></Properties>
+      <File>lua/Replacement/CitySupport.lua</File>
+    </ImportFiles>
+
+    <ReplaceUIScript id="DA_CityPanelOverview">
+      <Properties>
+        <LoadOrder>150000</LoadOrder>
+        <LuaContext>CityPanelOverview</LuaContext>
+        <LuaReplace>lua/Replacement/DA_CityPanelOverview.lua</LuaReplace>
+      </Properties>
+    </ReplaceUIScript>
+
+
+    <ImportFiles id="DA_CityPanelOverview">
+      <Properties><LoadOrder>150000</LoadOrder></Properties>
+      <File>lua/Replacement/DA_CityPanelOverview.lua</File>
+    </ImportFiles>
+
+    <ImportFiles id="Pantheons">
+      <Properties><LoadOrder>1</LoadOrder></Properties>
+      <File>lua/Pedia/CivilopediaPage_Belief.lua</File>
+    </ImportFiles>
+
+
+
+</InGameActions>
+
+<!--============================================= -->
+
+
+
+
+
+ <Files>
+        <File>Configs/DA_GameModes.xml</File> 
+        <File>Configs/Texts/DA_Text_GameModes.sql</File>
+        <File>Configs/Icons/DA_Icon_GameModes.sql</File>
+
+        <File>DataBase/DA_Unit_Abilities.sql</File> 
+        <File>DataBase/DA_Victories.sql</File> 
+        <File>DataBase/DA_Policies.sql</File>
+        <File>DataBase/DA_Citizen_Yields.sql</File>
+        <File>DataBase/DA_Governments.sql</File>
+        <File>DataBase/DA_Strategic_Projects.sql</File>
+        <File>Texts/DA_Text_Policies.sql</File>
+        <File>DataBase/DA_Requirements.sql</File> 
+        <File>DataBase/DA_Terrains_and_Features.sql</File> 
+        <File>DataBase/DA_Global_Parameters.sql</File> 
+        <File>DataBase/DA_Resources.sql</File> 
+        <File>DataBase/DA_Buildings.sql</File> 
+        <File>DataBase/DA_Districts.sql</File> 
+        <File>DataBase/DA_Units.sql</File> 
+        <File>DataBase/DA_Improvements.sql</File> 
+        <File>DataBase/DA_City_Policies.sql</File> 
+        <File>DataBase/DA_Beliefs.sql</File>        
+        <File>DataBase/DA_Pantheons.sql</File>
+        <File>DataBase/DA_Patron_Saints.sql</File>
+        <File>DataBase/DA_Religions.sql</File>
+        <File>DataBase/DA_Happiness.sql</File>
+        <File>DataBase/DA_Adjacencies.sql</File>
+        <File>DataBase/DA_Modifiers.sql</File> 
+        <File>DataBase/DA_GoodyHuts.sql</File>
+        <File>DataBase/DA_Wonders.sql</File>
+        <File>MajorCivs/DA_Egypt.sql</File>
+        <File>Texts/DA_Text_City_Policies.sql</File>
+        <File>Texts/DA_Text_GreatPeople.sql</File>
+        <File>Texts/DA_Text_Buildings.sql</File>
+        <File>Texts/DA_Text_Beliefs.sql</File>
+        <File>Texts/DA_Text_Pantheons.sql</File>
+        <File>Texts/DA_Text_Victories.sql</File>
+        <File>Texts/DA_Text_Happiness.sql</File>
+        <File>Texts/DA_Text_Districts.sql</File>
+        <File>Texts/DA_Text_Adjacencies.sql</File>
+        <File>Texts/DA_Text_Improvements.sql</File>
+        <File>Texts/DA_Text_Techs.sql</File>
+        <File>Texts/DA_Text_Civics.sql</File>
+        <File>lua/DA_Test.lua</File>
+        <File>Texts/DA_Text_Civilizations.sql</File>
+        <File>lua/DA_Barbarian_Conversion.lua</File>
+        <File>Events/DA_Event_Data.sql</File> 
+        <File>lua/DA_StateUtils.lua</File>
+        <File>DataBase/DA_Nontifications.sql</File>
+        <File>Texts/DA_Text_Nontifications.sql</File>
+        <File>lua/DA_Misc.lua</File>
+        <File>lua/DA_GovernmentQuests.lua</File>
+        <File>lua/DA_GovernmentQuests.xml</File>
+        <File>lua/DA_GreatPerson_Competition.xml</File>
+        <File>lua/DA_GreatPerson_Competition.lua</File>
+        <File>lua/DA_Property_Requirements.xml</File>
+        <File>lua/DA_Property_Requirements.lua</File>
+        <File>lua/DA_Wonders.xml</File>
+        <File>lua/DA_Wonders.lua</File>
+        <File>lua/Misc_UI.xml</File>
+        <File>lua/Misc_UI.lua</File>        
+        <File>lua/DA_Policies.lua</File>
+        <File>lua/DA_Religion.lua</File>
+        <File>lua/DA_City_Policies_GP.lua</File>
+        <File>MajorCivs/DA_China_Post.sql</File>
+        <File>lua/DA_China_Dynasty.lua</File>
+        <File>Icons/DA_Icon_Citypolicies.sql</File>
+        <File>lua/DA_Victories.lua</File>
+        <File>DA.dep</File>
+        <File>Platforms/MacOS/BLPs/darkage_building.blp</File>
+        <File>Platforms/MacOS/BLPs/darkage_citypolicy.blp</File>
+        <File>Platforms/MacOS/BLPs/darkage_eventframe.blp</File>
+        <File>Platforms/MacOS/BLPs/darkage_eventimage.blp</File>
+        <File>Platforms/MacOS/BLPs/darkage_BigIcons.blp</File>
+        <File>Platforms/MacOS/BLPs/darkage_civics.blp</File>
+        <File>Platforms/MacOS/BLPs/darkage_pantheons.blp</File>
+        <File>Platforms/Windows/BLPs/darkage_building.blp</File>
+        <File>Platforms/Windows/BLPs/darkage_citypolicy.blp</File>
+        <File>Platforms/Windows/BLPs/darkage_eventframe.blp</File>
+        <File>Platforms/Windows/BLPs/darkage_eventimage.blp</File>
+        <File>Platforms/Windows/BLPs/darkage_BigIcons.blp</File>
+        <File>Platforms/Windows/BLPs/darkage_civics.blp</File>
+        <File>Platforms/Windows/BLPs/darkage_pantheons.blp</File>
+        <File>ArtDefs/Units.artdef</File>
+        <File>DataBase/DA_PreProcess.sql</File> 
+        <File>Texts/DA_Text_GreatPeople.sql</File>
+        <File>DataBase/DA_Great_People.sql</File>
+        <File>lua/DA_GreatPeople.lua</File>
+        <File>Icons/DA_Icon_Notifications.sql</File>
+        <File>Icons/DA_Icon_Buildings.sql</File>
+        <File>Icons/DA_Icon_EventFrames.sql</File>
+        <File>Icons/DA_Icon_TechAndCivic.sql</File>
+        <File>Icons/DA_Icon_Pantheons.sql</File>        
+        <File>lua/TopPanel_DA.lua</File>
+        <File>lua/Replacement/GovernmentScreen.lua</File>
+        <File>lua/Replacement/GovernmentScreen.xml</File>
+        <File>DataBase/DA_PostProcess.sql</File> 
+        <File>lua/Replacement/CitySupport.lua</File>
+        <File>lua/DA_CityYield.lua</File>
+        <File>Texts/DA_Text_CityYield.sql</File>
+        <File>lua/DA_Resource_Cost.lua</File>
+        <File>lua/DA_Misc_UI.xml</File>
+        <File>lua/DA_Misc_UI.lua</File>
+        <File>lua/DA_City_Policies.xml</File>
+        <File>lua/DA_City_Policies.lua</File>
+        <File>Texts/DA_Text_Projects.sql</File>
+        <File>Icons/DA_Icon_Projects.sql</File>
+        <File>lua/Replacement/GovernorPanel.xml</File>
+        <File>lua/Replacement/GovernorPanel.lua</File>
+        <File>lua/Replacement/GovernorDetailsPanel.lua</File>
+        <File>lua/Replacement/GovernorDetailsPanel.xml</File>
+        <File>MajorCivs/DA_Aztec.xml</File>
+        <File>MajorCivs/DA_Aztec.sql</File>
+        <File>MajorCivs/DA_Aztec.lua</File>
+        <File>lua/Replacement/DA_CityPanelOverview.lua</File>
+        <File>MajorCivs/DA_Rome.sql</File>
+        <File>MajorCivs/DA_Egypt.sql</File>
+        <File>MajorCivs/DA_Egypt.xml</File>
+        <File>MajorCivs/DA_Egypt.lua</File>
+        <File>DataBase/DA_Civics.sql</File>
+        <File>DataBase/DA_Techs.sql</File>
+        <File>Events/lua/NEA_EventBuilder.lua</File>
+        <File>Events/Texts/NEA_Text_GoodyEvents.sql</File>
+        <File>Events/lua/NEA_GoodyEvents.lua</File>
+        <File>Events/lua/NEA_BarbEvents.lua</File>
+        <File>Events/lua/NEA_CommonEvents.lua</File>      
+        <File>Events/lua/EventPopup.xml</File>
+        <File>lua/Replacement/PantheonChooser.lua</File>
+        <File>lua/Replacement/PantheonChooser.xml</File>
+        <File>lua/Pedia/CivilopediaPage_Belief.lua</File>
+
+  </Files>
+  <LocalizedText>
+    <Text id="LOC_DARKAGE_NAME">
+      <en_US>[COLOR_FLOAT_SCIENCE]Dark Age : Cradle[ENDCOLOR]</en_US>
+      <zh_Hans_CN>[COLOR_FLOAT_SCIENCE]黑暗时代：摇篮[ENDCOLOR]</zh_Hans_CN>
+    </Text>
+
+    <Text id="LOC_DARKAGE_DESCRIPTION">
+    <en_US>null</en_US>
+    <zh_Hans_CN>在文明6日落西山，f社反复炒冷饭的今天，继续给文明6做缝缝补补只有死路一条！现在，开启文明6mod最伟大的时代吧，从早期的 [New] 事件系统到 [Global] 外交重制（史诗巨坑）。Darkage作为以高寄术力为特色的mod，坚持再次发明轮子只为摆脱原先沉疴系统给mod制作思路带来的限制。尽管已经在远古和古典时代添加了大量内容（完全可以这么说），但离改变游戏体验还有不小的距离，因此我们需要更多玩家来参与测试体验，给我们提出更多改动建议。黑暗时代mod讨论群455308501，欢迎各位的加入</zh_Hans_CN>
+    </Text>
+
+    <Text id="LOC_DARKAGE_TEASER">
+    <en_US>null</en_US>
+    <zh_Hans_CN>黑暗时代beta测试</zh_Hans_CN>
+    </Text>
+  </LocalizedText>
+ <!-- <UpdateText id="Districts">
+    <Properties><LoadOrder>28293</LoadOrder></Properties>
+      <Criteria>DISTRICT</Criteria>
+        <File>Texts/SGA_Texts_Districts.xml</File>
+    </UpdateText>  -->
+
+</Mod>

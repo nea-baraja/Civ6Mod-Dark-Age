@@ -1,0 +1,10 @@
+<GameData>
+    <LocalizedText> 	
+    <Replace Tag="LOC_DISTRICT_ENCAMPMENT_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>您城市里的军事机构区，防御工事的攻击范围为1，本城开发的战略资源将每回合额外+3。[NEWLINE][NEWLINE]与农场相邻时+1 [ICON_Housing] 住房。[NEWLINE]与牧场相邻时+1 [ICON_Housing] 住房。[NEWLINE]与种植园相邻时+1 [ICON_Housing] 住房。[NEWLINE]与营地相邻时+1 [ICON_Housing] 住房。[NEWLINE]与运河相邻时+1 [ICON_Housing] 住房。[NEWLINE]与航空港相邻时+1 [ICON_Housing] 住房。[NEWLINE]与市政广场相邻时+1 [ICON_Housing] 住房。[NEWLINE]与军营相邻时+1 [ICON_Housing] 住房。（需“城市圈”游戏模式）[NEWLINE]与国家军营相邻时+3 [ICON_Housing] 住房。[NEWLINE][NEWLINE]为相邻单元格提供-2魅力。</Text>
+    </Replace>
+        <Replace Tag="LOC_DISTRICT_ENCAMPMENT_DESCRIPTION" Language="en_US">
+      <Text>A district in your city for military facilities, attack range of defence is 1.Accumulate 3 extra Strategic resource for every different type of Strategic resource this city has improved.  [NEWLINE][NEWLINE]+1 [ICON_Housing] Housing when adjacent to Farm.[NEWLINE]+1 [ICON_Housing] Housing when adjacent to Pasture.[NEWLINE]+1 [ICON_Housing] Housing when adjacent to Plantation.[NEWLINE]+1 [ICON_Housing] Housing when adjacent to Camp.[NEWLINE]+1 [ICON_Housing] Housing when adjacent to Canal.[NEWLINE]+1 [ICON_Housing] Housing when adjacent to Aerodrome.[NEWLINE]+1 [ICON_Housing] Housing when adjacent to Government plaza.[NEWLINE]+1 [ICON_Housing] Housing when adjacent to Encampment. (Requries Megalopolis game mode)[NEWLINE]+3 [ICON_Housing] Housing when adjacent to National Encampment.[NEWLINE][NEWLINE]-2 Appeal.</Text>
+    </Replace>
+</LocalizedText>
+</GameData>
