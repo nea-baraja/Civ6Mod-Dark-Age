@@ -234,6 +234,35 @@ Utils.PlayerHasWonder = function(playerId, wonderId)
 end
 
 
+
+Utils.PlayerHasTrait = function(playerID, sTrait)
+    local playerConfig = PlayerConfigurations[playerID];
+    local sCiv = playerConfig:GetCivilizationTypeName();
+    for tRow in GameInfo.CivilizationTraits() do
+        if (tRow.CivilizationType == sCiv and tRow.TraitType == sTrait) then
+            return true;
+        end
+    end
+    local sLeader = playerConfig:GetLeaderTypeName();
+    for tRow in GameInfo.LeaderTraits() do
+        if (tRow.LeaderType == sLeader and tRow.TraitType == sTrait) then
+            return true;
+        end
+    end
+    return false;
+end
+
+Utils.GameHasTrait = function(sTrait)
+    for i, player in ipairs(Players) do
+        if Utils.PlayerHasTrait(i, sTrait) then 
+            return true;
+        end
+    end
+    return false;
+end
+
+
+
 function RecordUnitMove(playerID,unitID,x,y)
     local pUnit :object = Players[playerID]:GetUnits():FindID(unitID)
     --print(" unit type"..UnitManager.GetTypeName(pUnit))

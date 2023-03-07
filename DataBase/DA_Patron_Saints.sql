@@ -1,4 +1,4 @@
-create table 'PatronSaints'(
+/*create table 'PatronSaints'(
 	'Saint' TEXT NOT NULL,
 	'Class' TEXT,
 	'BuildingType' TEXT,
@@ -35,3 +35,4 @@ insert or replace into BuildingModifiers(BuildingType,			ModifierId) values
 --	()
 
 
+*/

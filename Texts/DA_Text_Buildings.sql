@@ -3,7 +3,7 @@
 insert or replace into LocalizedText
     (Language,      Tag,                                                        Text)
 values
-    ("zh_Hans_CN",  "LOC_BUILDING_MONUMENT_EXPANSION1_DESCRIPTION",             "本城未建造学院时+1 [ICON_SCIENCE] 科技值，未建造剧院广场时+1 [ICON_CULTURE] 文化值，未建造圣地时+1 [ICON_FAITH] 信仰值，建造所有以上区域时+5 [ICON_PressureUp] 忠诚度。"),
+    ("zh_Hans_CN",  "LOC_BUILDING_MONUMENT_EXPANSION1_DESCRIPTION",             "本城未建造学院时+1 [ICON_SCIENCE] 科技值，未建造剧院广场时+1 [ICON_CULTURE] 文化值，未建造圣地时+1 [ICON_FAITH] 信仰值，每建造一个以上区域就+2 [ICON_PressureUp] 忠诚度。"),
     ("zh_Hans_CN",  "LOC_BUILDING_GRANARY_DESCRIPTION",                         "为种植园+1 [ICON_Food] 食物，市中心获得来自草原，平原和沙漠泛滥平原的少量 [ICON_Food] 食物相邻加成。"),
     ("zh_Hans_CN",  "LOC_BUILDING_MASON_NAME",                                  "石匠坊"),
     ("zh_Hans_CN",  "LOC_BUILDING_MASON_DESCRIPTION",                           "为采石场+1 [ICON_PRODUCTION] 生产力，市中心获得来自草原丘陵和平原丘陵的少量 [ICON_PRODUCTION] 生产力相邻加成，以及来自草原山脉和平原山脉的标准 [ICON_PRODUCTION] 生产力相邻加成。"),

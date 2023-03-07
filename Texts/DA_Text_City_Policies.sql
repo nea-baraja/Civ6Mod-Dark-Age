@@ -236,11 +236,11 @@ values
 
 --磨坊
     ("zh_Hans_CN",  "LOC_CITY_POLICY_WATER_MILL",                                   "水力磨坊"),
-    ("zh_Hans_CN",  "LOC_CITY_POLICY_WATER_MILL_EFFECT",                            "城市每个河流边的区域+1 [ICON_PRODUCTION] 生产力。"),
+    ("zh_Hans_CN",  "LOC_CITY_POLICY_WATER_MILL_EFFECT",                            "城市每个河流边的区域+1 [ICON_PRODUCTION] 生产力和+1 [ICON_Food] 食物。"),
     ("zh_Hans_CN",  "LOC_CITY_POLICY_WIND_MILL",                                    "风车磨坊"),
-    ("zh_Hans_CN",  "LOC_CITY_POLICY_WIND_MILL_EFFECT",                             "城市每个海岸与岸边的区域+1 [ICON_PRODUCTION] 生产力。"),   
+    ("zh_Hans_CN",  "LOC_CITY_POLICY_WIND_MILL_EFFECT",                             "城市每个海岸与岸边的区域+1 [ICON_PRODUCTION] 生产力和+1 [ICON_Food] 食物。"),   
     ("zh_Hans_CN",  "LOC_CITY_POLICY_ANIMAL_MILL",                                  "畜力磨坊"),
-    ("zh_Hans_CN",  "LOC_CITY_POLICY_ANIMAL_MILL_EFFECT",                           "城市每个区域+1 [ICON_PRODUCTION] 生产力，城市每有2个区域就每回合消耗1 [ICON_RESOURCE_HORSES] 马，向上取整。"),
+    ("zh_Hans_CN",  "LOC_CITY_POLICY_ANIMAL_MILL_EFFECT",                           "城市每个区域+1 [ICON_PRODUCTION] 生产力和+1 [ICON_Food] 食物，城市每有2个区域就每回合消耗1 [ICON_RESOURCE_HORSES] 马，向上取整。"),
     ("zh_Hans_CN",  "LOC_CITY_POLICY_EMPTY_MILL",                                   "磨坊动力"),
     ("zh_Hans_CN",  "LOC_CITY_POLICY_EMPTY_MILL_EFFECT",                            "包括水力磨坊，风车磨坊和畜力磨坊"),
 

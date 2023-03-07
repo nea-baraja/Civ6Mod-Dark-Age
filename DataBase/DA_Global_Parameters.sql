@@ -57,8 +57,8 @@ INSERT INTO RequirementArguments (RequirementId, Name, Value) VALUES
 ('REQ_CITY_HAS_NO_PALACE', 'BuildingType', 'BUILDING_PALACE');
 
 
-UPDATE Eras_XP1 SET GameEraMaximumTurns = 40 	WHERE EraType = 'ERA_ANCIENT';			
-UPDATE Eras_XP1 SET GameEraMaximumTurns = 40 	WHERE EraType = 'ERA_CLASSICAL';		
+UPDATE Eras_XP1 SET GameEraMaximumTurns = 60 	WHERE EraType = 'ERA_ANCIENT';			
+UPDATE Eras_XP1 SET GameEraMaximumTurns = 60 	WHERE EraType = 'ERA_CLASSICAL';		
 UPDATE Eras_XP1 SET GameEraMaximumTurns = 40 	WHERE EraType = 'ERA_MEDIEVAL';			
 UPDATE Eras_XP1 SET GameEraMaximumTurns = 40 	WHERE EraType = 'ERA_RENAISSANCE';		
 UPDATE Eras_XP1 SET GameEraMaximumTurns = 40 	WHERE EraType = 'ERA_INDUSTRIAL';		
@@ -68,4 +68,4 @@ UPDATE Eras_XP1 SET GameEraMaximumTurns = 40 	WHERE EraType = 'ERA_INFORMATION';
 UPDATE Eras_XP1 SET GameEraMaximumTurns = 40 	WHERE EraType = 'ERA_FUTURE';		
 
 
-UPDATE Eras_XP1 SET GameEraMinimumTurns = 30 	;	
+UPDATE Eras_XP1 SET GameEraMinimumTurns = 40 	;	

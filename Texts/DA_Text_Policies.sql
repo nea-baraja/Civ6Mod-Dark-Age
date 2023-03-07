@@ -2,7 +2,7 @@ insert or replace into LocalizedText
     (Language,      Tag,                                                    Text)
 values
     ("zh_Hans_CN",  "LOC_POLICY_BLOOD_SACRIFICE_DESCRIPTION",               "每击杀1个战斗单位即可获得等于其战斗力50%的 [ICON_Faith] 信仰值。"),
-    ("zh_Hans_CN",  "LOC_POLICY_LOCAL_MAP_DESCRIPTION",                     "单位在城市6格范围内开始回合时+1 [ICON_MOVEMENT] 移动力，无视地形和地貌的额外 [ICON_MOVEMENT] 移动力消耗。"),
+    ("zh_Hans_CN",  "LOC_POLICY_LOCAL_MAP_DESCRIPTION",                     "单位在城市5格范围内开始回合时，无视地形和地貌的额外 [ICON_MOVEMENT] 移动力消耗。"),
     ("zh_Hans_CN",  "LOC_POLICY_LAND_MEASURE_DESCRIPTION",                  "所有城市+1 [ICON_Food] 食物。"),
     ("zh_Hans_CN",  "LOC_POLICY_GOD_KING_DESCRIPTION",                      "[ICON_CAPITAL] 首都+2 [ICON_FAITH] 信仰值。"),
     ("zh_Hans_CN",  "LOC_POLICY_DISCIPLINE_DESCRIPTION",                    "同蛮族战斗时，+4 [ICON_STRENGTH] 单位战斗力，若是在城市6格范围内则再+4 [ICON_STRENGTH] 单位战斗力。"),

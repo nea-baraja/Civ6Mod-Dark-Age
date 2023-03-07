@@ -20,23 +20,7 @@ values
 	('BELIEF_GGV',						'LOC_BELIEF_GGV_NAME',						'LOC_BELIEF_GGV_DESCRIPTION',							'BELIEF_CLASS_PANTHEON'),
 	('BELIEF_SHENNONG',					'LOC_BELIEF_SHENNONG_NAME',					'LOC_BELIEF_SHENNONG_DESCRIPTION',						'BELIEF_CLASS_PANTHEON');
 
---保存并转移万神殿
-create table 'Pantheons'(
-	'BeliefType' TEXT NOT NULL,
-	'Name' TEXT NOT NULL,
-	'Description' TEXT NOT NULL,
-	PRIMARY KEY('BeliefType')
-);
 
-insert into Pantheons(BeliefType,	Name,	Description) select
-	BeliefType,	Name,	Description
-	from Beliefs where BeliefClassType = 'BELIEF_CLASS_PANTHEON';
-
---确保万神殿在百科内的显示
-insert into CivilopediaPageQueries(SectionId,	PageGroupIdColumn,	TooltipColumn,	SortIndex,
-	SQL) values
-	('RELIGIONS',	'PageGroupId',	'Tooltip',	10,
-	'SELECT BeliefType as PageId, "BELIEF_CLASS_PANTHEON" as PageGroupId, "Belief" as PageLayoutId, Name, null as Tooltip FROM Pantheons');
 
 
 --select * from Modifiers where ModifierId like '%CITY_PATRON_GODDESS%';
@@ -88,8 +72,8 @@ insert or ignore into Godhood(GodhoodType,		ghClass,		ghParam1,		ghParam2,	ghPar
 	('DESERT_FOLKLORE',					'TERRAIN',		'TERRAIN_DESERT_MOUNTAIN',		2,	2,	NULL),
 	--('DESERT_FOLK_LORE',				'FEATURE',		'FEATURE_FLOODPLAINS',			-3,	-3,	NULL),	
 	('GOD_OF_THE_SEA',					'IMPROVEMENT',	'IMPROVEMENT_FISHING_BOATS',	3,	3,	NULL),
-	('GODDESS_FO_FIRE',					'FEATURE',		'FEATURE_GEOTHERMAL_FISSURE',	2,	2,	NULL),
-	('GODDESS_FO_FIRE',					'FEATURE',		'FEATURE_VOLCANIC_SOIL',		2,	2,	NULL),
+	('GODDESS_OF_FIRE',					'FEATURE',		'FEATURE_GEOTHERMAL_FISSURE',	2,	2,	NULL),
+	('GODDESS_OF_FIRE',					'FEATURE',		'FEATURE_VOLCANIC_SOIL',		2,	2,	NULL),
 	('DANCE_OF_THE_AURORA',				'TERRAIN',		'TERRAIN_TUNDRA',				2,	2,	NULL),
 	('DANCE_OF_THE_AURORA',				'TERRAIN',		'TERRAIN_TUNDRA_HILLS',			2,	2,	NULL),
 	('DANCE_OF_THE_AURORA',				'TERRAIN',		'TERRAIN_TUNDRA_MOUNTAIN',		2,	2,	NULL),
@@ -120,23 +104,32 @@ insert or ignore into Power(PowerType,		pwClass,		pwParam1,		pwParam2,	pwParam3,
 	('FERTILITY_RITES',					'YIELD_COPY',	'YIELD_FAITH',					1,	NULL,	NULL),
 	--('AESCULAPIUS',						'UNIT',			'PLACEHOLDER',					1,	NULL,	NULL),
 	('MONUMENT_TO_THE_GODS',			'CITY',			'THRESHOLD1',					4,	NULL,	NULL);
-/*
-insert or ignore into PantheonModifiers(GodhoodType,	PowerType,	ModifierId) select
-	GodhoodType, PowerType,	GodhoodType||'&'||PowerType||'#MOD1'
-	from Godhood, Power where ghClass in ('IMPROVEMENT',	'FEATURE',	'TERRAIN', 'APPEAL')
-	and pwClass in ('DISTRICT', 'CITY')
-	and pwParam1 = 'THRESHOLD1';
 
-insert or ignore into PantheonModifiers(GodhoodType,	PowerType,	ModifierId) select
-	GodhoodType, PowerType,	GodhoodType||'&'||PowerType||'#MOD2'
-	from Godhood, Power where ghClass in ('IMPROVEMENT',	'FEATURE',	'TERRAIN', 'APPEAL')
-	and pwClass in ('DISTRICT', 'CITY')
-	and pwParam1 = 'THRESHOLD2';
+update Beliefs set Description = 'LOC_'||BeliefType||'_DESCRIPTION' where BeliefClassType == 'BELIEF_CLASS_PANTHEON';
 
-insert or ignore into RequirementSets(RequirementSetId,	RequirementSetType) select
-	GodhoodType||'&THRESHOLD#'||numbers,	'REQUIREMENTSET_TEST_ANY'
-	from counter_m, Godhood where ghClass in ('IMPROVEMENT',	'FEATURE',	'TERRAIN', 'APPEAL'); 
-*/
+--保存并转移万神殿
+create table 'Pantheons'(
+	'BeliefType' TEXT NOT NULL,
+	'Name' TEXT NOT NULL,
+	'Description' TEXT NOT NULL,
+	PRIMARY KEY('BeliefType')
+);
+
+insert or replace into Pantheons(BeliefType,	Name,	Description) select
+	BeliefType,	Name,	Description
+	from Beliefs, Godhood where BeliefType == 'BELIEF_'||GodhoodType;
+
+insert or replace into Pantheons(BeliefType,	Name,	Description) select
+	BeliefType,	Name,	Description
+	from Beliefs, Power where BeliefType == 'BELIEF_'||PowerType;
+
+
+--确保万神殿在百科内的显示
+insert into CivilopediaPageQueries(SectionId,	PageGroupIdColumn,	TooltipColumn,	SortIndex,
+	SQL) values
+	('RELIGIONS',	'PageGroupId',	'Tooltip',	10,
+	'SELECT BeliefType as PageId, "BELIEF_CLASS_PANTHEON" as PageGroupId, "Belief" as PageLayoutId, Name, null as Tooltip FROM Pantheons');
+
 
 insert or ignore into Beliefs
 	(BeliefType,						Name,										Description,											BeliefClassType) select
@@ -147,7 +140,8 @@ insert or ignore into Types
 	(Type,									Kind) select
 	'BELIEF_'||GodhoodType||'_WITH_'||PowerType,	'KIND_BELIEF'
 	from Godhood, Power;
-
+	
+--在百科屏蔽组合万神
 insert or ignore into CivilopediaPageExcludes(SectionId,	PageId)	select
 	'RELIGIONS',	'BELIEF_'||GodhoodType||'_WITH_'||PowerType
 	from Godhood, Power;
@@ -836,28 +830,6 @@ insert or ignore into ModifierArguments(ModifierId,	Name,	Value) select
 
 
 
-
-
-
---测试
-insert or ignore into TraitModifiers(TraitType, ModifierId) values
-	('TRAIT_LEADER_MAJOR_CIV',		'STONE_CIRCLES_RELIGIOUS_SETTLEMENTS_HOUSING2'),
-		('TRAIT_LEADER_MAJOR_CIV',		'STONE_CIRCLES_RELIGIOUS_SETTLEMENTS_HOUSING1'),
-
-	('TRAIT_LEADER_MAJOR_CIV',		'TEST_PANTHEON2');
-
-insert or ignore into Modifiers(ModifierId, ModifierType,	SubjectRequirementSetId) values
-	('TEST_PANTHEON1',				'MODIFIER_PLAYER_CITIES_ADJUST_YIELD_CHANGE',		'RS_GODDESS_OF_THE_HUNT_THRESHOLD_4'),
-	--('TEST_PANTHEON3',				'MODIFIER_PLAYER_CITIES_ADJUST_YIELD_CHANGE',		'RS_DESERT_FOLK_LORE_THRESHOLD_4'),
-	('TEST_PANTHEON2',				'MODIFIER_PLAYER_CITIES_ADJUST_YIELD_CHANGE',		'RS_SACRED_PATH_THRESHOLD_3');
-
-insert or ignore into ModifierArguments(ModifierId, Name, Value) values
-	('TEST_PANTHEON1',				'YieldType',		'YIELD_CULTURE'),
-	('TEST_PANTHEON1',				'Amount',			100),	
-	--('TEST_PANTHEON3',				'YieldType',		'YIELD_FAITH'),
-	--('TEST_PANTHEON3',				'Amount',			100),
-	('TEST_PANTHEON2',				'YieldType',		'YIELD_SCIENCE'),
-	('TEST_PANTHEON2',				'Amount',			100);
 
 
 /*

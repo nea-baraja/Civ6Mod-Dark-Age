@@ -259,10 +259,19 @@ function ConfirmPantheon()
 
 		local iPlayer = Game.GetLocalPlayer();
 		if results then
-			for _, row in ipairs(results) do
-				if row.GodhoodType == GodhoodType and row.PowerType == PowerType then
-					GameEvents.PlayerAttachModifierByID.Call(iPlayer,	row.ModifierId);
-					print(row.ModifierId);
+			if Utils.PlayerHasTrait(iPlayer, 'TRAIT_LEADER_QGG_ASUNA_DESCENDEDGODDESSOFCREATION') then 
+				for _, row in ipairs(results) do
+					if row.GodhoodType == GodhoodType or row.PowerType == PowerType then
+						GameEvents.PlayerAttachModifierByID.Call(iPlayer,	row.ModifierId);
+						print(row.ModifierId);
+					end
+				end
+			else
+				for _, row in ipairs(results) do
+					if row.GodhoodType == GodhoodType and row.PowerType == PowerType then
+						GameEvents.PlayerAttachModifierByID.Call(iPlayer,	row.ModifierId);
+						print(row.ModifierId);
+					end
 				end
 			end
 		end
@@ -295,10 +304,19 @@ function PantheonForAI(iPlayer)
 	local sPantheon = GameInfo.Beliefs[iPantheon].BeliefType;
 	local results = DB.Query('SELECT * FROM PantheonModifiers');
 	if results then
-		for _, row in ipairs(results) do
-			if 'BELIEF_'..row.GodhoodType..'_WITH_'..row.PowerType == sPantheon then
-				GameEvents.PlayerAttachModifierByID.Call(iPlayer,	row.ModifierId);
-				print(row.ModifierId);
+		if Utils.PlayerHasTrait(iPlayer, 'TRAIT_LEADER_QGG_ASUNA_DESCENDEDGODDESSOFCREATION') then 
+			for _, row in ipairs(results) do
+				if string.find(sPantheon, row.GodhoodType) ~= nil or string.find(sPantheon, row.PowerType) ~= nil then
+					GameEvents.PlayerAttachModifierByID.Call(iPlayer,	row.ModifierId);
+					print(row.ModifierId);
+				end
+			end
+		else
+			for _, row in ipairs(results) do
+				if 'BELIEF_'..row.GodhoodType..'_WITH_'..row.PowerType == sPantheon then
+					GameEvents.PlayerAttachModifierByID.Call(iPlayer,	row.ModifierId);
+					print(row.ModifierId);
+				end
 			end
 		end
 	end

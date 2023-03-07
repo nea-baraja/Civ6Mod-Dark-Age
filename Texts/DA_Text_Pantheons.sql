@@ -94,9 +94,13 @@ insert or ignore into Power(PowerType,		pwClass,		pwParam1,		pwParam2,	pwParam3,
 
 
 insert or ignore into LocalizedText    (Language,      Tag,                                                             Text) values
-	('zh_Hans_CN',		'LOC_BELIEF_GGV_NAME',						'文曲星'),
-	('zh_Hans_CN',		'LOC_BELIEF_SHENNONG_NAME',					'神农'),
+	('zh_Hans_CN',		'LOC_BELIEF_GGV_NAME',								'文曲星'),
+	('zh_Hans_CN',		'LOC_BELIEF_SHENNONG_NAME',						'神农'),
 	('zh_Hans_CN',		'LOC_BELIEF_GOD_OF_WINE_NAME',				'酒神'),
+	('zh_Hans_CN',		'LOC_BELIEF_GGV_DESCRIPTION',					'至少拥有2 [ICON_Religion] 神力的区域或单元格+1 [ICON_CULTURE] 文化值'),
+	('zh_Hans_CN',		'LOC_BELIEF_SHENNONG_DESCRIPTION',		'至少拥有2 [ICON_Religion] 神力的区域或单元格+1 [ICON_FOOD] 食物'),
+	('zh_Hans_CN',		'LOC_BELIEF_GOD_OF_WINE_DESCRIPTION',	'至少拥有3 [ICON_Religion] 神力的区域+1 [ICON_Amenities] 宜居度；至少拥有5 [ICON_Religion] 神力的区域则再+1 [ICON_Amenities] 宜居度'),
+	('zh_Hans_CN',		'LOC_INITIATION_RITES',						'+{1_num} [ICON_FAITH] 信仰值来自所选神格。'),
 
 	('zh_Hans_CN',		'LOC_STONE_CIRCLES_POINTS',					'采石场'),
 	('zh_Hans_CN',		'LOC_DESERT_FOLKLORE_POINTS',				'沙漠，沙漠丘陵或沙漠山脉'),
@@ -124,7 +128,7 @@ insert or ignore into LocalizedText    (Language,      Tag,                     
 
 --三类+区域
 insert or ignore into PantheonTexts    (Language,      GodhoodType,	PowerType,		Texts) select
-			'zh_Hans_CN',		GodhoodType,	PowerType,		'一格范围内拥有至少拥有'||MultiNumber||'个'||'{LOC_'||GodhoodType||'_POINTS}的区域{LOC_'||PowerType||'_DIS_EFFECT}。'
+			'zh_Hans_CN',		GodhoodType,	PowerType,		'一格范围内（境内）拥有至少拥有'||MultiNumber||'个'||'{LOC_'||GodhoodType||'_POINTS}的区域{LOC_'||PowerType||'_DIS_EFFECT}。'
 	from Godhood, Power, ThresholdCounter where ghClass in ('IMPROVEMENT',	'FEATURE',	'TERRAIN') and pwClass = 'DISTRICT'
 	and pwParam1 in ('THRESHOLD1', 'THRESHOLD2') and ghParam3 = Delta and pwParam2 = Threshold;
 --三类+城市
@@ -134,7 +138,7 @@ insert or ignore into PantheonTexts    (Language,      GodhoodType,	PowerType,		
 	and pwParam1 in ('THRESHOLD1', 'THRESHOLD2') and ghParam3 = Delta and pwParam2 = Threshold;
 --三类+封禅
 insert or ignore into PantheonTexts    (Language,      GodhoodType,	PowerType,		Texts) select
-			'zh_Hans_CN',		GodhoodType,	'INITIATION_RITES',	'圣地一格范围内的每个{LOC_'||GodhoodType||'_POINTS}均为圣地+'||ghParam3||' [ICON_FAITH] 信仰值相邻加成。'
+			'zh_Hans_CN',		GodhoodType,	'INITIATION_RITES',	'圣地一格范围内（境内）的每个{LOC_'||GodhoodType||'_POINTS}均为圣地+'||ghParam3||' [ICON_FAITH] 信仰值相邻加成。'
 	from Godhood where ghClass in ('IMPROVEMENT',	'FEATURE',	'TERRAIN');
 --三类+丰产仪式
 insert or ignore into PantheonTexts    (Language,      GodhoodType,	PowerType,		Texts) select
@@ -181,5 +185,63 @@ insert into LocalizedText(Language,	Tag,	Text) select
 --	('LOC_ORAL_TRADITION_DIVINE_SPARK_THRESHOLD1',	'一格范围内拥有至少拥有'||3||'ge'||'{LOC_DANCE_OF_THE_AURORA_POINTS}的区域');
 
 
-
+--单个万神
+insert or replace into LocalizedText
+    (Language,      Tag,                                                         Text)
+values
+    ("zh_Hans_CN",  "LOC_BELIEF_ORAL_TRADITION_NAME",                           "口述传统"),
+    ("zh_Hans_CN",  "LOC_BELIEF_ORAL_TRADITION_DESCRIPTION",                 "森林+1 [ICON_Religion] 神力，为相邻区域+1 [ICON_Religion] 神力。"),
+    ("zh_Hans_CN",  "LOC_BELIEF_SEA_GODDESSS_NAME",                   "海神"),
+    ("zh_Hans_CN",  "LOC_BELIEF_SEA_GODDESSS_DESCRIPTION",                      "？？？？"),
+    ("zh_Hans_CN",  "LOC_BELIEF_MOUNTAIN_GODDESS_NAME",                 "山神"),
+    ("zh_Hans_CN",  "LOC_BELIEF_MOUNTAIN_GODDESS_DESCRIPTION",          "？？？？"),
+    ("zh_Hans_CN",  "LOC_BELIEF_GODDESS_OF_THE_HARVEST_NAME","收获女神"),
+    ("zh_Hans_CN",  "LOC_BELIEF_GODDESS_OF_THE_HARVEST_DESCRIPTION",            "？？？？"),
+    ("zh_Hans_CN",  "LOC_BELIEF_GOD_OF_THE_FORGE_NAME",                     "锻造之神"),
+    ("zh_Hans_CN",  "LOC_BELIEF_GOD_OF_THE_FORGE_DESCRIPTION",           "？？？？"),
+    ("zh_Hans_CN",  "LOC_BELIEF_CITY_PATRON_GODDESS_NAME",                     "城市守护女神"),
+    ("zh_Hans_CN",  "LOC_BELIEF_CITY_PATRON_GODDESS_DESCRIPTION",           "市中心拥有4 [ICON_Religion] 神力时，建造第一个专业区域后，可以无视人口需求再造一个专业区域。"),
+    ("zh_Hans_CN",  "LOC_BELIEF_DIVINE_SPARK_NAME",                     "神圣之光"),
+    ("zh_Hans_CN",  "LOC_BELIEF_DIVINE_SPARK_DESCRIPTION",           "至少拥有2 [ICON_Religion] 神力的区域，+1伟人点产出；至少拥有4 [ICON_Religion] 神力的区域再+2。"),
+    ("zh_Hans_CN",  "LOC_BELIEF_GOD_OF_WAR_NAME",                     "战争之神"),
+    ("zh_Hans_CN",  "LOC_BELIEF_GOD_OF_WAR_DESCRIPTION",           "？？？？"),
+    ("zh_Hans_CN",  "LOC_BELIEF_MONUMENT_TO_THE_GODS_NAME",                     "主神纪念碑"),
+    ("zh_Hans_CN",  "LOC_BELIEF_MONUMENT_TO_THE_GODS_DESCRIPTION",           "市中心拥有4 [ICON_Religion] 神力时，建造远古和古典奇观+25%生产力。"),
+    ("zh_Hans_CN",  "LOC_BELIEF_FERTILITY_RITES_NAME",                     "丰产仪式"),
+    ("zh_Hans_CN",  "LOC_BELIEF_FERTILITY_RITES_DESCRIPTION",           "单元格的每点 [ICON_Religion] 神力均为单元格+1 [ICON_FAITH] 信仰值。"),
+    ("zh_Hans_CN",  "LOC_BELIEF_GOD_OF_CRAFTSMEN_NAME",                     "工匠之神"),
+    ("zh_Hans_CN",  "LOC_BELIEF_GOD_OF_CRAFTSMEN_DESCRIPTION",           "改良后的战略资源为本单元格+3 [ICON_Religion] 神力，为市中心+1 [ICON_Religion] 神力。"),
+    ("zh_Hans_CN",  "LOC_BELIEF_GOD_OF_THE_OPEN_SKY_NAME",                     "天空之神"),
+    ("zh_Hans_CN",  "LOC_BELIEF_GOD_OF_THE_OPEN_SKY_DESCRIPTION",           "牧场+3 [ICON_Religion] 神力，为相邻区域+3 [ICON_Religion] 神力。"),
+    ("zh_Hans_CN",  "LOC_BELIEF_GOD_OF_THE_SEA_NAME",                     "海洋之神"),
+    ("zh_Hans_CN",  "LOC_BELIEF_GOD_OF_THE_SEA_DESCRIPTION",           "渔船+3 [ICON_Religion] 神力，为相邻区域+3 [ICON_Religion] 神力。"),
+    ("zh_Hans_CN",  "LOC_BELIEF_STONE_CIRCLES_NAME",                     "石圈"),
+    ("zh_Hans_CN",  "LOC_BELIEF_STONE_CIRCLES_DESCRIPTION",           "至少拥有2 [ICON_Religion] 神力的区域，+1住房；至少拥有4 [ICON_Religion] 神力区域再+1住房。"),
+    ("zh_Hans_CN",  "LOC_BELIEF_GODDESS_OF_THE_HUNT_NAME",                     "狩猎女神"),
+    ("zh_Hans_CN",  "LOC_BELIEF_GODDESS_OF_THE_HUNT_DESCRIPTION",           "营地+1 [ICON_Religion] 神力，为相邻区域+1 [ICON_Religion] 神力。"),
+    ("zh_Hans_CN",  "LOC_BELIEF_GODDESS_OF_FESTIVALS_NAME",                     "节庆女神"),
+    ("zh_Hans_CN",  "LOC_BELIEF_GODDESS_OF_FESTIVALS_DESCRIPTION",           "种植园+2 [ICON_Religion] 神力，为相邻区域+3 [ICON_Religion] 神力。"),
+    ("zh_Hans_CN",  "LOC_BELIEF_RELIGIOUS_IDOLS_NAME",                     "宗教偶像"),
+    ("zh_Hans_CN",  "LOC_BELIEF_RELIGIOUS_IDOLS_DESCRIPTION",           "矿山+1 [ICON_Religion] 神力，为相邻区域+1 [ICON_Religion] 神力。"),
+    ("zh_Hans_CN",  "LOC_BELIEF_LADY_OF_THE_REEDS_AND_MARSHES_NAME",                     "芦苇和沼泽地里的夫人"),
+    ("zh_Hans_CN",  "LOC_BELIEF_LADY_OF_THE_REEDS_AND_MARSHES_DESCRIPTION",           "沼泽、绿洲、沙漠泛滥平原+2 [ICON_Religion] 神力，为相邻区域+2 [ICON_Religion] 神力。"),
+    ("zh_Hans_CN",  "LOC_BELIEF_GODDESS_OF_FIRE_NAME",                     "火之女神"),
+    ("zh_Hans_CN",  "LOC_BELIEF_GODDESS_OF_FIRE_DESCRIPTION",           "地热裂缝和火山土+2 [ICON_Religion] 神力，为相邻区域+2 [ICON_Religion] 神力。"),
+    ("zh_Hans_CN",  "LOC_BELIEF_SACRED_PATH_NAME",                     "神圣道路"),
+    ("zh_Hans_CN",  "LOC_BELIEF_SACRED_PATH_DESCRIPTION",           "雨林+1 [ICON_Religion] 神力，为相邻区域+1 [ICON_Religion] 神力。"),
+    ("zh_Hans_CN",  "LOC_BELIEF_DANCE_OF_THE_AURORA_NAME",                     "极光之舞"),
+    ("zh_Hans_CN",  "LOC_BELIEF_DANCE_OF_THE_AURORA_DESCRIPTION",           "冻土，冻土丘陵和冻土山脉+2 [ICON_Religion] 神力，为相邻区域+2 [ICON_Religion] 神力。"),
+    ("zh_Hans_CN",  "LOC_BELIEF_DESERT_FOLKLORE_NAME",                     "沙漠民俗"),
+    ("zh_Hans_CN",  "LOC_BELIEF_DESERT_FOLKLORE_DESCRIPTION",           "沙漠，沙漠丘陵和沙漠山脉+2 [ICON_Religion] 神力，为相邻区域+2 [ICON_Religion] 神力。"),
+    ("zh_Hans_CN",  "LOC_BELIEF_RIVER_GODDESS_NAME",                     "河神"),
+    ("zh_Hans_CN",  "LOC_BELIEF_RIVER_GODDESS_DESCRIPTION",           "河流单元格提供1 [ICON_Religion] 神力，为其上区域再+1 [ICON_Religion] 神力。"),
+    ("zh_Hans_CN",  "LOC_BELIEF_EARTH_GODDESS_NAME",                     "大地女神"),
+    ("zh_Hans_CN",  "LOC_BELIEF_EARTH_GODDESS_DESCRIPTION",           "单元格的每2点魅力值提供1 [ICON_Religion] 神力。"),
+    ("zh_Hans_CN",  "LOC_BELIEF_INITIATION_RITES_NAME",                     "封禅"),
+    ("zh_Hans_CN",  "LOC_BELIEF_INITIATION_RITES_DESCRIPTION",           "圣地的每点 [ICON_Religion] 神力均为圣地+1相邻加成"),
+    ("zh_Hans_CN",  "LOC_BELIEF_GOD_OF_HEALING_NAME",                     "愈合之神"),
+    ("zh_Hans_CN",  "LOC_BELIEF_GOD_OF_HEALING_DESCRIPTION",           "在有 [ICON_Religion] 神力的单元格单位恢复+30"),
+	("zh_Hans_CN",  "LOC_BELIEF_RELIGIOUS_SETTLEMENTS_NAME",                     "家神"),
+    ("zh_Hans_CN",  "LOC_BELIEF_RELIGIOUS_SETTLEMENTS_DESCRIPTION",           "至少2 [ICON_Religion] 神力的区域，+1[ICON_Housing]住房；至少4 [ICON_Religion] 神力区域再+1[ICON_Housing]住房");
+   
 
