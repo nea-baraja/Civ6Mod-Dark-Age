@@ -1,6 +1,7 @@
 
 delete from BuildingModifiers where BuildingType in ('BUILDING_TEMPLE_ARTEMIS', 'BUILDING_ORACLE');
-
+update Buildings set Description = 'LOC_'||BuildingType||'_DESCRIPTION' where BuildingType in
+	('BUILDING_PYRAMIDS', 'BUILDING_GREAT_BATH', 'BUILDING_TEMPLE_ARTEMIS', 'BUILDING_ORACLE');
 
 insert or replace into BuildingModifiers(BuildingType,	ModifierId) values
 	('BUILDING_PYRAMIDS',		'PRYAMID_BUILDER_EXTRA_MOVEMENTS'),

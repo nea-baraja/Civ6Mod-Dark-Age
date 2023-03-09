@@ -345,7 +345,12 @@
     <Properties><LoadOrder>28411</LoadOrder></Properties>
         <File>Texts/DA_Text_Improvements.sql</File>
     </UpdateText> 
-
+    <AddGameplayScripts id="Function">
+      <Properties>
+        <LoadOrder>28196</LoadOrder>
+      </Properties>
+      <File>lua/DA_Utils.lua</File>
+    </AddGameplayScripts>
     <AddGameplayScripts id="Function">
       <Properties>
         <LoadOrder>28197</LoadOrder>
@@ -620,6 +625,19 @@
         <File>Events/lua/EventPopup.xml</File>
     </ImportFiles>
 
+    <ReplaceUIScript id="Command">
+      <Properties>
+        <LoadOrder>150001</LoadOrder>
+        <LuaContext>UnitPanel</LuaContext>
+        <LuaReplace>lua/Replacement/DA_UnitPanel.lua</LuaReplace>
+      </Properties>
+    </ReplaceUIScript>
+
+    <ImportFiles id="Command">
+        <File>lua/Replacement/DA_UnitPanel.lua</File>
+        <File>lua/DA_UnitCommandDefs.lua</File>   
+    </ImportFiles>
+
     <AddGameplayScripts id="Function">
       <Properties><LoadOrder>30000</LoadOrder></Properties>      
       <File>Events/lua/NEA_GoodyEvents.lua</File>
@@ -719,6 +737,7 @@
         <File>DataBase/DA_Nontifications.sql</File>
         <File>Texts/DA_Text_Nontifications.sql</File>
         <File>lua/DA_Misc.lua</File>
+        <File>lua/DA_Utils.lua</File>
         <File>lua/DA_GovernmentQuests.lua</File>
         <File>lua/DA_GovernmentQuests.xml</File>
         <File>lua/DA_GreatPerson_Competition.xml</File>
@@ -779,6 +798,9 @@
         <File>lua/Replacement/GovernorPanel.lua</File>
         <File>lua/Replacement/GovernorDetailsPanel.lua</File>
         <File>lua/Replacement/GovernorDetailsPanel.xml</File>
+        <File>lua/Replacement/DA_UnitPanel.lua</File>
+        <File>lua/DA_UnitCommandDefs.lua</File>   
+
         <File>MajorCivs/DA_Aztec.xml</File>
         <File>MajorCivs/DA_Aztec.sql</File>
         <File>MajorCivs/DA_Aztec.lua</File>

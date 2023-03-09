@@ -33,7 +33,7 @@ function ArtemisBuildCamps( playerID, cityID, buildingID, plotID, bOriginalConst
 	for k, pPickPlot in ipairs(tPlots) do
 		local iResource = pPickPlot:GetResourceType();
 		if pPickPlot:GetOwner() == playerID and pPickPlot:GetImprovementType() == -1 and pPickPlot:GetDistrictType() == -1 then
-			if iResource ~= -1 then
+			if iResource ~= -1 and pPlayer:GetResources():IsResourceVisible(iResource) then
 				for row in GameInfo.Improvement_ValidResources() do
 					if row.ImprovementType == 'IMPROVEMENT_CAMP' and row.ResourceType == GameInfo.Resources[iResource].ResourceType then
 						bValid = true;

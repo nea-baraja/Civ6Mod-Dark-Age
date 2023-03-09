@@ -29,6 +29,9 @@ values
 insert or replace into Types
 	(Type,														Kind)
 values
+
+	('ABILITY_BUILDROAD_MODE',										'KIND_ABILITY'),
+
 	('ABILITY_BARRACK_FARM',											'KIND_ABILITY'),
 	('ABILITY_STABLED_CAMP',											'KIND_ABILITY'),
 	('ABILITY_COOPERATIVE_FLANKING',							'KIND_ABILITY'),
@@ -36,11 +39,15 @@ values
 	('ABILITY_COOPERATIVE_SUPPORT',								'KIND_ABILITY'),
 	('ABILITY_CARRIAGE_TRANSPORT_MOVEMENT',				'KIND_ABILITY');
 
-
+insert or replace into Types	(Type,																Kind) select
+	'ABILITY_LOSE_'||numbers||'_BUILD_CHARGES',		'KIND_ABILITY'
+	from counter where numbers > 0 and numbers < 11;
 
 insert or replace into TypeTags
 	(Type,																Tag)
 values
+	('ABILITY_BUILDROAD_MODE',										'CLASS_BUILDER'),
+
 	('ABILITY_BARRACK_FARM',											'CLASS_MELEE'),
 	('ABILITY_BARRACK_FARM',											'CLASS_RANGED'),
 	('ABILITY_BARRACK_FARM',											'CLASS_ANTI_CAVALRY'),	
@@ -55,9 +62,16 @@ values
 	('ABILITY_COOPERATIVE_SUPPORT',								'CLASS_LAND_COMBAT'),
 	('ABILITY_CARRIAGE_TRANSPORT_MOVEMENT',				'CLASS_LAND_UNITS');
 
+insert or replace into TypeTags	(Type,																Tag) select
+	'ABILITY_LOSE_'||numbers||'_BUILD_CHARGES',		'CLASS_BUILDER'
+	from counter where numbers > 0 and numbers < 11;
+
 
 insert or replace into UnitAbilities (UnitAbilityType, Name, Description, Inactive) values
-
+    ('ABILITY_BUILDROAD_MODE',
+		NULL,
+		NULL,
+    1),
     ('ABILITY_BARRACK_FARM',
     'LOC_ABILITY_BARRACK_FARM_NAME',
     'LOC_ABILITY_BARRACK_FARM_DESCRIPTION',
@@ -83,10 +97,18 @@ insert or replace into UnitAbilities (UnitAbilityType, Name, Description, Inacti
     'LOC_ABILITY_CARRIAGE_TRANSPORT_MOVEMENT_DESCRIPTION',
     1);
 
+insert or replace into UnitAbilities (UnitAbilityType, Name, Description, Inactive) select
+	'ABILITY_LOSE_'||numbers||'_BUILD_CHARGES', null, null, 1
+	from counter where numbers > 0 and numbers < 11;
+
+
 
 insert or replace into UnitAbilityModifiers
 	(UnitAbilityType,										ModifierId							)
 values
+	('ABILITY_BUILDROAD_MODE',									'BUILDROAD_MODE_IGNORE_TERRAIN'),
+	('ABILITY_BUILDROAD_MODE',									'BUILDROAD_MODE_IGNORE_RIVER'),
+
 	('ABILITY_BARRACK_FARM',										'BARRACK_FARM_FOOD'),
 	('ABILITY_BARRACK_FARM',										'BARRACK_FARM_COST'),
 	('ABILITY_BARRACK_FARM',										'BARRACK_FARM_COST_DISCOUNT'),
@@ -95,13 +117,20 @@ values
 	('ABILITY_STABLED_CAMP',										'STABLED_CAMP_COST'),
 	('ABILITY_STABLED_CAMP',										'STABLED_CAMP_COST_DISCOUNT'),
 
-
 	('ABILITY_FORGE_WEAPON_STRENGTH',						'FORGE_WEAPON_STRENGTH_MODIFIER'	),
 	('ABILITY_COOPERATIVE_FLANKING',						'COOPERATIVE_FLANKING_MODIFIER'		),
 	('ABILITY_COOPERATIVE_SUPPORT',							'COOPERATIVE_SUPPORT_MODIFIER'		),
 	('ABILITY_CARRIAGE_TRANSPORT_MOVEMENT',			'CARRIAGE_TRANSPORT_MOVEMENT_MODIFIER'	);
 
+insert or replace into UnitAbilityModifiers(UnitAbilityType,										ModifierId) select
+	'ABILITY_LOSE_'||numbers||'_BUILD_CHARGES', 'LOSE_'||numbers||'_BUILD_CHARGES'
+	from counter where numbers > 0 and numbers < 11;
+
 insert or replace into Modifiers(ModifierId, 				ModifierType) values
+	('BUILDROAD_MODE_IGNORE_TERRAIN',									'MODIFIER_PLAYER_UNIT_ADJUST_IGNORE_TERRAIN_COST'),
+	('BUILDROAD_MODE_IGNORE_RIVER',										'MODIFIER_PLAYER_UNIT_ADJUST_IGNORE_RIVERS'),
+
+
 	('BARRACK_FARM_COST',										'MODIFIER_PLAYER_ADJUST_YIELD_CHANGE'),
 	('STABLED_CAMP_COST',										'MODIFIER_PLAYER_ADJUST_YIELD_CHANGE'),
 	('BARRACK_FARM_FOOD_MOD',								'MODIFIER_SINGLE_PLOT_ADJUST_PLOT_YIELDS'),
@@ -112,6 +141,11 @@ insert or replace into Modifiers(ModifierId, 				ModifierType) values
 	('COOPERATIVE_FLANKING_MODIFIER',				'MODIFIER_PLAYER_UNIT_ADJUST_FLANKING_BONUS_MODIFIER'),
 	('COOPERATIVE_SUPPORT_MODIFIER',				'MODIFIER_PLAYER_UNIT_ADJUST_SUPPORT_BONUS_MODIFIER'),
 	('CARRIAGE_TRANSPORT_MOVEMENT_MODIFIER',		'MODIFIER_PLAYER_UNIT_ADJUST_MOVEMENT');
+
+insert or replace into Modifiers(ModifierId, 				ModifierType) select
+	'LOSE_'||numbers||'_BUILD_CHARGES',			'MODIFIER_UNIT_ADJUST_BUILDER_CHARGES'
+	from counter where numbers > 0 and numbers < 11;
+
 
 insert or replace into Modifiers(ModifierId, 				ModifierType, SubjectRequirementSetId, OwnerRequirementSetId,	SubjectStackLimit) values
 
@@ -127,6 +161,11 @@ insert or replace into Modifiers(ModifierId, 				ModifierType, SubjectRequiremen
 insert or replace into ModifierArguments
 	(ModifierId,											Name,					Value)
 values
+	('BUILDROAD_MODE_IGNORE_TERRAIN',								'Ignore',						1),
+	('BUILDROAD_MODE_IGNORE_TERRAIN',								'Type',							'ALL'),
+	('BUILDROAD_MODE_IGNORE_RIVER',									'Ignore',						1),
+
+
 	('BARRACK_FARM_FOOD',														'ModifierId',				'BARRACK_FARM_FOOD_MOD'),
 	('STABLED_CAMP_FOOD',														'ModifierId',				'STABLED_CAMP_FOOD_MOD'),
 	('BARRACK_FARM_FOOD_MOD',												'YieldType',				'YIELD_FOOD'),
@@ -146,6 +185,13 @@ values
 	('COOPERATIVE_FLANKING_MODIFIER',								'Percent',				50),
 	('COOPERATIVE_SUPPORT_MODIFIER',								'Percent',				50),
 	('CARRIAGE_TRANSPORT_MOVEMENT_MODIFIER',				'Amount',				1);
+
+insert or replace into ModifierArguments(ModifierId,											Name,					Value) select
+	'LOSE_'||numbers||'_BUILD_CHARGES',			'Amount',			-1
+	from counter where numbers > 0 and numbers < 11;
+
+
+
 
 insert or replace into RequirementSets(RequirementSetId,	RequirementSetType) values
 	('RS_ON_EACAMPMENT_OR_FORT',				'REQUIREMENTSET_TEST_ANY'),
