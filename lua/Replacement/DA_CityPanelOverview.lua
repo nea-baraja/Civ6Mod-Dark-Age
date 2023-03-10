@@ -51,19 +51,19 @@ function ViewPanelAmenities( data:table )
             "[NEWLINE]" ..
             GetColorPercentString(Round(1 + (data.HappinessYieldForDA[YieldTypes.CULTURE]/100), 2)) .. 
             " "..
-            "文化值加成[NEWLINE]"..
+            "文化值产出[NEWLINE]"..
             GetColorPercentString(Round(1 + (data.HappinessYieldForDA[YieldTypes.SCIENCE]/100), 2)) .. 
             " "..
-            "科技值加成[NEWLINE]"..
+            "科技值产出[NEWLINE]"..
             GetColorPercentString(Round(1 + (data.HappinessYieldForDA[YieldTypes.PRODUCTION]/100), 2)) .. 
             " "..
-            "生产力加成[NEWLINE]"..
+            "生产力产出[NEWLINE]"..
             GetColorPercentString(Round(1 + (data.HappinessYieldForDA[YieldTypes.GOLD]/100), 2)) .. 
             " "..
-            "金币加成[NEWLINE]"..
+            "金币产出[NEWLINE]"..
             GetColorPercentString(Round(1 + (data.HappinessYieldForDA[YieldTypes.FAITH]/100), 2)) .. 
             " "..
-            "信仰值加成";
+            "信仰值产出";
             Controls.CitizenGrowth:SetText( newGrowthinfo );
 
     -- No need to do extra processing if there's no error.

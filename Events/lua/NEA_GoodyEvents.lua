@@ -18,7 +18,7 @@ function OnGoodyHutTriggered(iPlayerID :number, iUnitID :number, goodyHutType :n
 	if (pUnit == nil) then
 		return;
 	end
-	local randomEvent = PickEvent();
+	local randomEvent = PickEvent(iPlayerID, iUnitID);
 	print(randomEvent);
 	m_GoodyHutEventDefs[randomEvent].Activate(iPlayerID, iUnitID);
 end
@@ -55,12 +55,12 @@ function OnGoodyEventPopupChoice(ePlayer : number, params : table)
 	end	
 end
 
-function PickEvent()
+function PickEvent(iPlayerID :number, iUnitID :number)
 	local randomVal = TerrainBuilder.GetRandomNumber(#m_GoodyHutEventIndex, 'GoodyHutEvent') + 1;
-	if m_GoodyHutEventDefs[m_GoodyHutEventIndex[randomVal]].Ready == nil or m_GoodyHutEventDefs[m_GoodyHutEventIndex[randomVal]].Ready() then
+	if m_GoodyHutEventDefs[m_GoodyHutEventIndex[randomVal]].Ready == nil or m_GoodyHutEventDefs[m_GoodyHutEventIndex[randomVal]].Ready(iPlayerID, iUnitID) then
 		return m_GoodyHutEventIndex[randomVal];
 	end
-	return PickEvent();
+	return PickEvent(iPlayerID,iUnitID);
 end
 
 
@@ -92,6 +92,13 @@ function FindClosestCity(player, iStartX, iStartY)
    
     return pCity;
 end
+
+--[[function PopAllocate(playerID, iPop, iX, iY)
+	local pPlayer = Players[playerID];
+	local pPlayerCities:table = pPlayer:GetCities();
+	local mAllocation = {};
+	for 
+]]
 
 
 function length(t)
@@ -534,6 +541,204 @@ m_GoodyHutEventDefs['EVENT_GOODY_MURAL'].BCallback = function(kParams : table)
 	pPlayer:AttachModifierByID("EVENT_GOODY_MURAL_PALACE_SCIENCE_MORE");
 end
 
+--居无定所
+m_GoodyHutEventDefs['EVENT_GOODY_NO_HOME'].EventKey = 'EVENT_GOODY_NO_HOME'
+m_GoodyHutEventDefs['EVENT_GOODY_NO_HOME'].Activate = function(iPlayerID :number, iUnitID :number)
+	local sEventKey = 'EVENT_GOODY_NO_HOME'
+	local pPlayer = Players[iPlayerID]
+	local InvalidGovernor : boolean = false
+	local pGovernor = pPlayer:GetGovernors();
+	if(pGovernor:GetGovernorPoints() <= pGovernor:GetGovernorPointsSpent()) then
+	    InvalidGovernor = true;
+	end
+	--Save calculation results
+	local SavedData = {};
+	SavedData.UnitID = iUnitID;
+	SavedData.PlayerID = iPlayerID;
+	pPlayer:SetProperty('EVENT_GOODY_NO_HOME',SavedData);
+	--Prepare UI
+	unlockA = {};
+	unlockA.Effects = {Locale.Lookup("LOC_EVENT_GOODY_NO_HOME_GAIN_SETTLER"), Locale.Lookup("LOC_EVENT_GOODY_NO_HOME_LOSE_GOVERNOR")};
+	unlockA.EffectIcons = {{"Promises_city"}, {"Governor", "ICON_EVENT_BAD"}};
+	unlockA.Disabled = InvalidGovernor;
+
+	unlockB = {};
+	unlockB.Effects = {Locale.Lookup("LOC_EVENT_GOODY_NO_HOME_GAIN_ENVOY")};
+	unlockB.EffectIcons = {{"Envoy"}};
+	if unlockA.Disabled then  
+		unlockA.DisabledReasons = {Locale.Lookup('LOC_EVENT_GOODY_NO_HOME_NO_GOVERNOR_TO_LOSE')};
+	end
+	--Call event popup
+	ReportingEvents.Send("EVENT_POPUP_REQUEST", { ForPlayer = iPlayerID, EventKey = sEventKey, ChoiceAText ="LOC_"..sEventKey.."_CHOICE_A", ChoiceBText="LOC_"..sEventKey.."_CHOICE_B",ChoiceAUnlocks=unlockA,ChoiceBUnlocks=unlockB});
+end
+
+m_GoodyHutEventDefs['EVENT_GOODY_NO_HOME'].ACallback = function(kParams : table)
+	local pPlayer : object = Players[kParams.ForPlayer];
+	local SavedData = pPlayer:GetProperty(kParams.EventKey);
+	local pUnit = UnitManager.GetUnit(SavedData.PlayerID, SavedData.UnitID);
+	local pGovernor = pPlayer:GetGovernors();
+	pGovernor:ChangeGovernorPoints(-1);
+	local iX, iY = pUnit:GetX(), pUnit:GetY();
+	UnitManager.InitUnit(SavedData.PlayerID, 'UNIT_SETTLER', iX, iY);
+end
+
+m_GoodyHutEventDefs['EVENT_GOODY_NO_HOME'].BCallback = function(kParams : table)
+	 local pPlayer : object = Players[kParams.ForPlayer];
+	 pPlayer:GetInfluence():ChangeTokensToGive(1);
+end
+
+--地上的星星
+m_GoodyHutEventDefs['EVENT_GOODY_LAND_STAR'].EventKey = 'EVENT_GOODY_LAND_STAR'
+m_GoodyHutEventDefs['EVENT_GOODY_LAND_STAR'].Activate = function(iPlayerID :number, iUnitID :number)
+	local sEventKey = 'EVENT_GOODY_LAND_STAR'
+	local pPlayer = Players[iPlayerID]
+	local InvalidIron : boolean = false
+	local ResourcesIron : number = GameInfo.Resources["RESOURCE_IRON"].Index
+	local pPlayerResources = pPlayer:GetResources();
+	if(pPlayerResources:GetResourceAmount(ResourcesIron) < 20) then
+	    InvalidIron = true
+	end
+	--Save calculation results
+	local SavedData = {};
+	SavedData.UnitID = iUnitID;
+	SavedData.PlayerID = iPlayerID;
+	pPlayer:SetProperty('EVENT_GOODY_LAND_STAR',SavedData);
+	--Prepare UI
+	unlockA = {};
+	unlockA.Effects = {Locale.Lookup("LOC_EVENT_GOODY_LAND_STAR_GAIN_IRON")};
+	unlockA.EffectIcons = {{"RESOURCE_IRON"}};
+	unlockB = {};
+	unlockB.Effects = {Locale.Lookup("LOC_EVENT_GOODY_LAND_STAR_GAIN_RELICS"), Locale.Lookup("LOC_EVENT_GOODY_LAND_STAR_LOSE_IRON")};
+	unlockB.EffectIcons = {{"GreatWork_Relic"}, {"RESOURCE_IRON", "ICON_EVENT_BAD"}};
+	unlockB.Disabled = InvalidIron;
+	if unlockB.Disabled then  
+		unlockB.DisabledReasons = {Locale.Lookup('LOC_EVENT_GOODY_LAND_STAR_NO_IRON_TO_LOSE')};
+	end
+	--Call event popup
+	ReportingEvents.Send("EVENT_POPUP_REQUEST", { ForPlayer = iPlayerID, EventKey = sEventKey, ChoiceAText ="LOC_"..sEventKey.."_CHOICE_A", ChoiceBText="LOC_"..sEventKey.."_CHOICE_B",ChoiceAUnlocks=unlockA,ChoiceBUnlocks=unlockB});
+end
+
+m_GoodyHutEventDefs['EVENT_GOODY_LAND_STAR'].ACallback = function(kParams : table)
+	 local pPlayer : object = Players[kParams.ForPlayer];
+	 local ResourcesIron : number = GameInfo.Resources["RESOURCE_IRON"].Index
+     pPlayer:GetResources():ChangeResourceAmount(ResourcesIron, 20);
+end
+
+m_GoodyHutEventDefs['EVENT_GOODY_LAND_STAR'].BCallback = function(kParams : table)
+	 local pPlayer : object = Players[kParams.ForPlayer];
+	 local ResourcesIron : number = GameInfo.Resources["RESOURCE_IRON"].Index
+     pPlayer:GetResources():ChangeResourceAmount(ResourcesIron, -20);
+     pPlayer:AttachModifierByID("GOODY_CULTURE_GRANT_ONE_RELIC");
+end
+
+
+--异域商队
+m_GoodyHutEventDefs['EVENT_GOODY_FOREIGN_CARANAVS'].EventKey = 'EVENT_GOODY_FOREIGN_CARANAVS'
+m_GoodyHutEventDefs['EVENT_GOODY_FOREIGN_CARANAVS'].Activate = function(iPlayerID :number, iUnitID :number)
+	local sEventKey = 'EVENT_GOODY_FOREIGN_CARANAVS'
+	local pPlayer = Players[iPlayerID]
+	local InvalidIron : boolean = false
+	local ResourcesIron : number = GameInfo.Resources["RESOURCE_HORSES"].Index
+	local pPlayerResources = pPlayer:GetResources();
+	if(pPlayerResources:GetResourceAmount(ResourcesIron) < 20) then
+	    InvalidIron = true
+	end
+	--Save calculation results
+	local SavedData = {};
+	SavedData.UnitID = iUnitID;
+	SavedData.PlayerID = iPlayerID;
+	pPlayer:SetProperty('EVENT_GOODY_FOREIGN_CARANAVS',SavedData);
+	--Prepare UI
+	unlockA = {};
+	unlockA.Effects = {Locale.Lookup("LOC_EVENT_GOODY_FOREIGN_CARANAVS_CHOICE_A_EFFECTS_GET_HORSES")};
+	unlockA.EffectIcons = {{"RESOURCE_HORSES"}};
+	unlockB = {};
+	unlockB.Effects = {Locale.Lookup("LOC_EVENT_GOODY_FOREIGN_CARANAVS_CHOICE_B_EFFECTS_GET_TRADE"), Locale.Lookup("LOC_EVENT_GOODY_FOREIGN_CARANAVS_CHOICE_B_EFFECTS_LOSE_HORSES")};
+	unlockB.EffectIcons = {{"TradeRouteLarge"}, {"RESOURCE_HORSES", "ICON_EVENT_BAD"}};
+	unlockB.Disabled = InvalidIron;
+	if unlockB.Disabled then  
+		unlockB.DisabledReasons = {Locale.Lookup('LOC_EVENT_GOODY_FOREIGN_CARANAVS_CHOICE_B_DISABLED')};
+	end
+	--Call event popup
+	ReportingEvents.Send("EVENT_POPUP_REQUEST", { ForPlayer = iPlayerID, EventKey = sEventKey, ChoiceAText ="LOC_"..sEventKey.."_CHOICE_A", ChoiceBText="LOC_"..sEventKey.."_CHOICE_B",ChoiceAUnlocks=unlockA,ChoiceBUnlocks=unlockB});
+end
+
+m_GoodyHutEventDefs['EVENT_GOODY_FOREIGN_CARANAVS'].ACallback = function(kParams : table)
+	 local pPlayer : object = Players[kParams.ForPlayer];
+	 local ResourcesIron : number = GameInfo.Resources["RESOURCE_HORSES"].Index
+     pPlayer:GetResources():ChangeResourceAmount(ResourcesIron, 20);
+end
+
+m_GoodyHutEventDefs['EVENT_GOODY_FOREIGN_CARANAVS'].BCallback = function(kParams : table)
+	 local pPlayer : object = Players[kParams.ForPlayer];
+	 local ResourcesIron : number = GameInfo.Resources["RESOURCE_HORSES"].Index
+     pPlayer:GetResources():ChangeResourceAmount(ResourcesIron, -20);
+     pPlayer:AttachModifierByID("MARKET_TRADE_ROUTE_CAPACITY");
+end
+
+
+--流浪杂技团
+m_GoodyHutEventDefs['EVENT_GOODY_VAGRANT_ACROBATIC'].Weight=100
+
+m_GoodyHutEventDefs['EVENT_GOODY_VAGRANT_ACROBATIC'].EventKey = 'EVENT_GOODY_VAGRANT_ACROBATIC'
+m_GoodyHutEventDefs['EVENT_GOODY_VAGRANT_ACROBATIC'].Ready = function(iPlayerID :number, iUnitID :number)
+    local pUnit : table = UnitManager.GetUnit(iPlayerID, iUnitID)
+	local iX = pUnit:GetX()
+    local iY = pUnit:GetY()
+    local pCity = FindClosestCity(iPlayerID, iX, iY)
+    if(pCity ~= nullptr) then
+        return true
+    else
+        return false
+    end
+end;
+m_GoodyHutEventDefs['EVENT_GOODY_VAGRANT_ACROBATIC'].Activate = function(iPlayerID :number, iUnitID :number)
+	local sEventKey = 'EVENT_GOODY_VAGRANT_ACROBATIC'
+	local pPlayer = Players[iPlayerID]
+	local pUnit : table = UnitManager.GetUnit(iPlayerID, iUnitID) 
+	local iX = pUnit:GetX()
+    local iY = pUnit:GetY()
+    local pCity = FindClosestCity(iPlayerID, iX, iY)
+    local CityID : number = pCity:GetID()
+	--Save calculation results
+	local SavedData = {};
+	SavedData.UnitID = iUnitID;
+	SavedData.PlayerID = iPlayerID;
+	SavedData.CityID = CityID
+	pPlayer:SetProperty('EVENT_GOODY_VAGRANT_ACROBATIC',SavedData);
+	--Prepare UI
+	unlockA = {};
+	unlockA.Effects = {Locale.Lookup("LOC_EVENT_GOODY_VAGRANT_ACROBATIC_GET_CITY_AMENITIES",pCity:GetName())};
+	unlockA.EffectIcons = {{"Amenities"}};
+	unlockB = {};
+	--unlockB.Effects = {Locale.Lookup("LOC_EVENT_GOODY_VAGRANT_ACROBATIC_GET_GOLD"), Locale.Lookup("LOC_EVENT_GOODY_VAGRANT_ACROBATIC_LOSE_CITY_AMENITIES",pCity:GetName())};
+	--unlockB.EffectIcons = {{"Gold"}, {"Amenities","ICON_EVENT_BAD"}};
+	unlockB.Effects = {Locale.Lookup("LOC_EVENT_GOODY_VAGRANT_ACROBATIC_LOSE_CITY_AMENITIES",pCity:GetName())};
+	unlockB.EffectIcons = {{"Amenities","ICON_EVENT_BAD"}};
+	--Call event popup
+	ReportingEvents.Send("EVENT_POPUP_REQUEST", { ForPlayer = iPlayerID, EventKey = sEventKey, ChoiceAText =Locale.Lookup("LOC_"..sEventKey.."_CHOICE_A",pCity:GetName()), ChoiceBText=Locale.Lookup("LOC_"..sEventKey.."_CHOICE_B",pCity:GetName()),ChoiceAUnlocks=unlockA,ChoiceBUnlocks=unlockB});
+end
+
+m_GoodyHutEventDefs['EVENT_GOODY_VAGRANT_ACROBATIC'].ACallback = function(kParams : table)
+	 local pPlayer : object = Players[kParams.ForPlayer];
+	 local SavedData : table = pPlayer:GetProperty(kParams.EventKey);
+	 local pCityID = SavedData.CityID
+	 local pCity = CityManager.GetCity(SavedData.PlayerID, SavedData.CityID)
+     if(pCity ~= nullptr) then
+        pCity:AttachModifierByID("EVENT_GOODY_ADD_CITY_AMENITIES");
+     end
+end
+
+m_GoodyHutEventDefs['EVENT_GOODY_VAGRANT_ACROBATIC'].BCallback = function(kParams : table)
+	 local pPlayer : object = Players[kParams.ForPlayer];
+	 pPlayer:GetTreasury():ChangeGoldBalance(80)
+	 local SavedData : table = pPlayer:GetProperty(kParams.EventKey);
+	 local pCityID = SavedData.CityID
+	 local pCity = CityManager.GetCity(SavedData.PlayerID, SavedData.CityID)
+     if(pCity ~= nullptr) then
+        pCity:AttachModifierByID("EVENT_GOODY_SUBTRACT_CITY_AMENITIES");
+     end
+end
 
 
 

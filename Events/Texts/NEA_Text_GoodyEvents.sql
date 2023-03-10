@@ -122,7 +122,46 @@ values
     ("zh_Hans_CN",  "LOC_EVENT_GOODY_ANCIENT_FORTIFICATION_2_GOOD_END",                 "30%概率触发事件“攻克工事”"),
     ("zh_Hans_CN",  "LOC_EVENT_GOODY_ANCIENT_FORTIFICATION_2_BAD_END",                  "70%概率你的{1_UNITNAME}失去25生命值，触发事件“没有进展”"),
     ("zh_Hans_CN",  "LOC_EVENT_GOODY_ANCIENT_FORTIFICATION_2_STOP",                     "获得25 [ICON_GOLD] 金币"),
-    ("zh_Hans_CN",  "LOC_EVENT_GOODY_ANCIENT_FORTIFICATION_2_UNIT_KILLED",              "[COLOR_RED]在上一轮进攻中，你的{1_UNITNAME}已溃败[ENDCOLOR]");
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_ANCIENT_FORTIFICATION_2_UNIT_KILLED",              "[COLOR_RED]在上一轮进攻中，你的{1_UNITNAME}已溃败[ENDCOLOR]"),
+
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_NO_HOME_TITLE",                                    "居无定所"),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_NO_HOME_DESCRIPTION",                              ""),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_NO_HOME_EFFECT",                                   "这里的人们被其他文明排斥，居无定所。你可以让他们留在你的帝国吗？或者让周边的小国接纳他们？"),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_NO_HOME_CHOICE_A",                                 "派驻官员"),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_NO_HOME_CHOICE_B",                                 "迁徙他国"),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_NO_HOME_GAIN_SETTLER",                             "在此获得一个开拓者"),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_NO_HOME_LOSE_GOVERNOR",                            "失去一个 [ICON_GOVERNOR] 总督头衔"),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_NO_HOME_GAIN_ENVOY",                               "获得一个 [ICON_Envoy] 使者"),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_NO_HOME_NO_GOVERNOR_TO_LOSE",                      "[COLOR_RED]需要至少拥有一个 [ICON_GOVERNOR] 总督头衔以派遣官员[ENDCOLOR]"),
+
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_LAND_STAR_TITLE",                                  "地上的星星"),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_LAND_STAR_DESCRIPTION",                            ""),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_LAND_STAR_EFFECT",                                 "这里的人们在崇拜一个造型独特的巨石，据他们声称，这是天上的星星掉了下来，是神灵的使者。而你的顾问却告诉你这只是一块上好的铁矿石，熔了作为武器才是最佳选择。"),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_LAND_STAR_CHOICE_A",                               "熔化“星星”"),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_LAND_STAR_CHOICE_B",                               "用铁器交换“星星”"),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_LAND_STAR_GAIN_IRON",                              "获得20 [ICON_RESOURCE_IRON] 铁"),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_LAND_STAR_LOSE_IRON",                              "失去20 [ICON_RESOURCE_IRON] 铁"),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_LAND_STAR_GAIN_RELICS",                            "获得一份随机 [ICON_GREATWORK_RELIC] 遗物"),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_LAND_STAR_NO_IRON_TO_LOSE",                        "[COLOR_RED] [ICON_RESOURCE_IRON] 铁不足20，无法进行交换。[ENDCOLOR]"),
+
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_FOREIGN_CARANAVS_TITLE",                           "异域商队"),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_FOREIGN_CARANAVS_DESCRIPTION",                     ""),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_FOREIGN_CARANAVS_EFFECT",                          "你遇到了一个自称来自远方的商队，他们的货物在途中漂没，现在没有足够的资源回到家乡。他们恳求你接纳商队在这里暂时生活，并向你讲述远方国度的各种奇珍异宝。"),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_FOREIGN_CARANAVS_CHOICE_A",                        "让他们在这定居"),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_FOREIGN_CARANAVS_CHOICE_B",                        "投资商队，开拓商路"),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_FOREIGN_CARANAVS_CHOICE_A_EFFECTS_GET_HORSES",     "获得20 [ICON_RESOURCE_HORSES] 马"),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_FOREIGN_CARANAVS_CHOICE_B_DISABLED",               "[COLOR_RED]需要有20 [ICON_RESOURCE_HORSES] 马以进行投资[ENDCOLOR]"),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_FOREIGN_CARANAVS_CHOICE_B_EFFECTS_GET_TRADE",      "获得1 [ICON_TradeRouteLarge] 商路容量"),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_FOREIGN_CARANAVS_CHOICE_B_EFFECTS_LOSE_HORSES",    "失去20 [ICON_RESOURCE_HORSES] 马"),
+ 
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_VAGRANT_ACROBATIC_TITLE",                          "流浪杂技团"),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_VAGRANT_ACROBATIC_DESCRIPTION",                    ""),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_VAGRANT_ACROBATIC_EFFECT",                         "你遇到了一群进行奇怪表演的艺人，他们在空中做出各种危险动作，又有惊无险地安全着陆。你的顾问认为这些人不事生产，做奇怪行为博人眼球，应该教育他们进行劳作，可你却觉得有时候看看这种表演也挺有意思的。"),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_VAGRANT_ACROBATIC_CHOICE_A",                       "请他们来{1_CITY}表演"),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_VAGRANT_ACROBATIC_CHOICE_B",                       "在{1_CITY}禁止杂技表演"),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_VAGRANT_ACROBATIC_GET_CITY_AMENITIES",             "{1_CITY}+2 [ICON_Amenities] 宜居度"),
+    --("zh_Hans_CN",  "LOC_EVENT_GOODY_VAGRANT_ACROBATIC_GET_GOLD",                       "获得80 [ICON_GOLD] 金币"),
+    ("zh_Hans_CN",  "LOC_EVENT_GOODY_VAGRANT_ACROBATIC_LOSE_CITY_AMENITIES",            "{1_CITY}-2 [ICON_Amenities] 宜居度");
 
 
 insert or replace into LocalizedText
