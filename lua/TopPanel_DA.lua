@@ -11,24 +11,32 @@ local files = {
 for _, file in ipairs(files) do
     include(file)
 end
+
+GameEvents = ExposedMembers.GameEvents;
+ExposedMembers.DA = ExposedMembers.DA or {};
+ExposedMembers.DA.Utils = ExposedMembers.DA.Utils or {};
+Utils = ExposedMembers.DA.Utils;
+
+
+--GameEvents.RequestChangeFaithBalance.Call(3,21)
+
 --内部详细备注版,对外或许可以删除这些，随E酱了
 include( "SupportFunctions" ); -- Round(必要调用)
 PPK_RefreshYields = RefreshYields;
 PPK_FormatValuePerTurn = FormatValuePerTurn;
-local GameEvents = ExposedMembers.GameEvents
 local FaithAmount = 0; --扣掉的信仰数值
 local AddPROPHET = 0; --增加的大仙数值
 local AddRed = 0; --
 whetherToConvert = {};
 PPK_FixBug = {};
-local greatEngID = GameInfo.GreatPersonClasses['GREAT_PERSON_CLASS_PROPHET'].Index
+local greatProID = GameInfo.GreatPersonClasses['GREAT_PERSON_CLASS_PROPHET'].Index
 function GetGreatPeopleInfo(playerID)
 	local player = Players[playerID]
-	local PointsTotal	= player:GetGreatPeoplePoints():GetPointsTotal(greatEngID);
-	local PointsPerTurn	= player:GetGreatPeoplePoints():GetPointsPerTurn(greatEngID);
+	local PointsTotal	= player:GetGreatPeoplePoints():GetPointsTotal(greatProID);
+	local PointsPerTurn	= player:GetGreatPeoplePoints():GetPointsPerTurn(greatProID);
 	local pGreatPeople	:table  = Game.GetGreatPeople();
 	local pTimeline = pGreatPeople:GetTimeline();
-	local recruitCost = pTimeline[greatEngID].Cost;
+	local recruitCost = pTimeline[greatProID].Cost;
 	return PointsTotal, PointsPerTurn, recruitCost;
 end
 
@@ -40,7 +48,7 @@ function FaithConvertGreatPeoplePoints(playerID)
 	--local faithYield :number = Round( Players[playerID]:GetReligion():GetFaithYield(),1 );--信仰产量
 	local gameSpeed = GameConfiguration.GetGameSpeedType()
 	--local iSpeedCostMultiplier = GameInfo.GameSpeeds[gameSpeed].CostMultiplier * 0.01--游戏速度
-	--local greatEngID = GameInfo.GreatPersonClasses['GREAT_PERSON_CLASS_PROPHET'].Index
+	--local greatProID = GameInfo.GreatPersonClasses['GREAT_PERSON_CLASS_PROPHET'].Index
 	--local amount = faithBalance * 0.01 * iSpeedCostMultiplier--具体怎么给大仙数值？？
 	
 	FaithAmount = 0; --清除
@@ -50,7 +58,7 @@ function FaithConvertGreatPeoplePoints(playerID)
 		--当转的大仙数大于成功招聘大仙需要数时，加的数等于大仙需要数，同时及时锁函数
 		if Amount1 > NeedToEndTheRound then Amount1 = NeedToEndTheRound; whetherToConvert[playerID] = false; PPK_FixBug[playerID] = true; end
 		AddPROPHET = Amount1
-		GameEvents.AddGreatPeoplePoints.Call(playerID, greatEngID, Amount1)
+		GameEvents.AddGreatPeoplePoints.Call(playerID, greatProID, Amount1)
 		FaithAmount = Amount1 * 2;
 	end
 	
@@ -62,6 +70,19 @@ end
 function DA_ppkPlayerTurnActivated()
 	local playerID = Game.GetLocalPlayer()
 	local pPlayer = Players[playerID];
+	if pPlayer == nil then return; end
+	local pGreatPeople	:table  = Game.GetGreatPeople();
+	local pTimeline:table = nil;
+	local earnConditions		:string = nil;
+	pTimeline = pGreatPeople:GetTimeline();
+	for i,entry in ipairs(pTimeline) do
+		if entry.Class == greatProID then
+			if (entry.Individual ~= nil) then
+				earnConditions = pGreatPeople:GetEarnConditionsText(displayPlayerID, entry.Individual);
+			end
+		end
+	end
+
 	local pReligion = pPlayer:GetReligion();
 	local m_Religion = pReligion:GetReligionTypeCreated();
 	local m_PantheonBelief = pReligion:GetPantheon();
@@ -70,7 +91,9 @@ function DA_ppkPlayerTurnActivated()
 	if whetherToConvert[playerID] == nil then whetherToConvert[playerID] = false; end
 	whetherToConvert[playerID] = false;
 	-- 万神殿未完成或宗教创建后结束转换
-	if (m_PantheonBelief < 0) or (m_Religion >= 0) then return; else whetherToConvert[playerID] = true; end
+	if ((m_PantheonBelief < 0) or (m_Religion >= 0)) or pPlayer:GetProperty('PROP_CHOICE_MONOTHEISM') ~= 1 
+		or (earnConditions ~= nil and earnConditions ~= "") then return; 
+	else whetherToConvert[playerID] = true; end
 	if whetherToConvert[playerID] then FaithConvertGreatPeoplePoints(playerID); end
 end
 

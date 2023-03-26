@@ -2,14 +2,50 @@
 --------------------------------------------------------------
 delete from TraitModifiers where TraitType = 'TRAIT_CIVILIZATION_LEGEND_FIVE_SUNS' and ModifierId = 'TRAIT_OWNED_LUXURY_EXTRA_AMENITIES';
 
-insert or replace into TraitModifiers (TraitType, ModifierId) values
-('TRAIT_CIVILIZATION_LEGEND_FIVE_SUNS', 'DA_LEGEND_FIVE_SUNS_CAPTURE_WORKER');
+-- insert or replace into TraitModifiers (TraitType, ModifierId) values
+-- ('TRAIT_CIVILIZATION_LEGEND_FIVE_SUNS', 'DA_LEGEND_FIVE_SUNS_CAPTURE_WORKER');
 
-insert or replace into Modifiers (ModifierId, ModifierType, SubjectRequirementSetId) values
-('DA_LEGEND_FIVE_SUNS_CAPTURE_WORKER', 'MODIFIER_PLAYER_UNITS_GRANT_ABILITY', NULL);
+-- insert or replace into Modifiers (ModifierId, ModifierType, SubjectRequirementSetId) values
+-- ('DA_LEGEND_FIVE_SUNS_CAPTURE_WORKER', 'MODIFIER_PLAYER_UNITS_GRANT_ABILITY', NULL);
 
-insert or replace into ModifierArguments (ModifierId, Name, Value) values
-('DA_LEGEND_FIVE_SUNS_CAPTURE_WORKER', 'AbilityType', 'ABILITY_CAPTIVE_WORKERS');
+-- insert or replace into ModifierArguments (ModifierId, Name, Value) values
+-- ('DA_LEGEND_FIVE_SUNS_CAPTURE_WORKER', 'AbilityType', 'ABILITY_LUXURY_STRENGTH_MELEE');
+
+-- insert or replace into Types
+-- 	(Type,														Kind)
+-- values
+-- 	('ABILITY_LUXURY_STRENGTH_EXTRA',							'KIND_ABILITY');
+
+-- insert or replace into Tags(Tag,		Vocabulary) values
+-- 	('CLASS_UNIT_AZTEC_EAGLE_WARRIOR',				'ABILITY_CLASS');
+
+-- insert or replace into TypeTags
+-- 	(Type,									Tag)
+-- values
+-- 	('UNIT_AZTEC_EAGLE_WARRIOR', 		'CLASS_UNIT_AZTEC_EAGLE_WARRIOR'),
+-- 	('ABILITY_LUXURY_STRENGTH_EXTRA', 	'CLASS_UNIT_AZTEC_EAGLE_WARRIOR');
+
+-- insert or replace into UnitAbilities(UnitAbilityType, Name, Description, Inactive) values
+
+--     ('ABILITY_LUXURY_STRENGTH_EXTRA',
+-- 	'LOC_ABILITY_LUXURY_STRENGTH_EXTRA_NAME',
+-- 	'LOC_ABILITY_LUXURY_STRENGTH_EXTRA_DESCRIPTION',
+--     1);
+
+-- insert or replace into UnitAbilityModifiers
+-- 	(UnitAbilityType,										ModifierId							) values
+-- 	('ABILITY_LUXURY_STRENGTH_EXTRA',						'LUXURY_STRENGTH_EXTRA');
+
+-- insert or replace into Modifiers(ModifierId, ModifierType) values
+-- 	('LUXURY_STRENGTH_EXTRA',		'MODIFIER_PLAYER_UNIT_ADJUST_PER_LUXURY_ATTACK_MODIFIER');
+
+-- insert or replace into ModifierArguments(ModifierId, Name, Value) values
+-- 	('LUXURY_STRENGTH_EXTRA',		'Amount',   1);
+
+-- insert or replace into ModifierStrings(ModifierId, Context, Text) values
+-- 	('LUXURY_STRENGTH_EXTRA',		'Preview',   'LOC_PREVIEW_MONTEZUMA_COMBAT_BONUS_PER_LUXURY_DESCRIPTION');
+
+
 
 update UnitAbilities set  Inactive = 1
 where UnitAbilityType = 'ABILITY_CAPTIVE_WORKERS';
@@ -50,15 +86,20 @@ insert or replace into ModifierArguments(ModifierId,	Name,	Value) select
 insert or replace into Modifiers(ModifierId,	ModifierType) values
 	('DA_AZTEC_AMENITY', 		'MODIFIER_SINGLE_CITY_ADJUST_IMPROVEMENT_AMENITY'),
 	('DA_AZTEC_HOUSING', 		'MODIFIER_SINGLE_CITY_ADJUST_BUILDING_HOUSING'),
+	('DA_AZTEC_FAITH', 			'MODIFIER_SINGLE_CITY_ADJUST_YIELD_CHANGE'),
+	('DA_AZTEC_CULTURE', 		'MODIFIER_SINGLE_CITY_ADJUST_YIELD_CHANGE'),
 	('DA_AZTEC_POPULATION', 	'MODIFIER_SINGLE_CITY_ADD_POPULATION');
 
 insert or replace into ModifierArguments(ModifierId,	Name,	Value) values
-	('DA_AZTEC_AMENITY', 		'Amount',	1),
-	('DA_AZTEC_HOUSING', 		'Amount',	1),
-	('DA_AZTEC_POPULATION', 	'Amount',	1);
+	('DA_AZTEC_AMENITY', 		'Amount',		1),
+	('DA_AZTEC_HOUSING', 		'Amount',		2),
+	('DA_AZTEC_FAITH', 			'Amount',		3),
+	('DA_AZTEC_FAITH', 			'YieldType',	'YIELD_FAITH'),
+	('DA_AZTEC_CULTURE', 		'Amount',		2),
+	('DA_AZTEC_CULTURE', 		'YieldType',	'YIELD_CULTURE'),
+	('DA_AZTEC_POPULATION', 	'Amount',		1);
 
-
-
+update Buildings set Cost = 75 where BuildingType = 'BUILDING_TLACHTLI'; 
 
 /*
 insert or replace into Types(Type,	Kind) values

@@ -4,6 +4,9 @@ values
     ("zh_Hans_CN",  "LOC_POLICY_BLOOD_SACRIFICE_DESCRIPTION",               "每击杀1个战斗单位即可获得等于其战斗力50%的 [ICON_Faith] 信仰值。"),
     ("zh_Hans_CN",  "LOC_POLICY_LOCAL_MAP_DESCRIPTION",                     "单位在城市5格范围内开始回合时，无视地形和地貌的额外 [ICON_MOVEMENT] 移动力消耗。"),
     ("zh_Hans_CN",  "LOC_POLICY_LAND_MEASURE_DESCRIPTION",                  "所有城市+1 [ICON_Food] 食物。"),
+    ("zh_Hans_CN",  "LOC_POLICY_CELEBRATION_DESCRIPTION",                   "所有城市+1 [ICON_Amenities] 宜居度。"),
+    ("zh_Hans_CN",  "LOC_POLICY_HERB_PLANT_DESCRIPTION",                    "首都+1 [ICON_SCIENCE] 科技值。"),
+
     ("zh_Hans_CN",  "LOC_POLICY_GOD_KING_DESCRIPTION",                      "[ICON_CAPITAL] 首都+2 [ICON_FAITH] 信仰值。"),
     ("zh_Hans_CN",  "LOC_POLICY_DISCIPLINE_DESCRIPTION",                    "同蛮族战斗时，+4 [ICON_STRENGTH] 单位战斗力，若是在城市6格范围内则再+4 [ICON_STRENGTH] 单位战斗力。"),
     ("zh_Hans_CN",  "LOC_POLICY_SURVEY_DESCRIPTION",                        "侦察单位获得的经验值翻倍，且驻扎时额外回复5点生命值。"),
@@ -33,6 +36,9 @@ values
     ("zh_Hans_CN",  "LOC_POLICY_BLOOD_SACRIFICE_NAME",              "血祭传统"),
     ("zh_Hans_CN",  "LOC_POLICY_LOCAL_MAP_NAME",                    "本地地图"),
     ("zh_Hans_CN",  "LOC_POLICY_LAND_MEASURE_NAME",                 "土地丈量"),
+    ("zh_Hans_CN",  "LOC_POLICY_CELEBRATION_NAME",                  "庆典"),
+    ("zh_Hans_CN",  "LOC_POLICY_HERB_PLANT_NAME",                   "草药种植"),
+
     ("zh_Hans_CN",  "LOC_POLICY_CHARISMATIC_LEADER_NAME",           "使节"),
     ("zh_Hans_CN",  "LOC_POLICY_COASTAL_SURVEY_NAME",               "沿海调查"),
     ("zh_Hans_CN",  "LOC_POLICY_TRIBUTE_NAME",                      "朝贡"),
@@ -48,11 +54,19 @@ insert or replace into LocalizedText
 values
     ("zh_Hans_CN",  "LOC_GOVERNMENT_CITY_STATE_ALLIANCE_NAME",              "城邦共主"),
     ("zh_Hans_CN",  "LOC_GOVERNMENT_TRIBE_UNITY_NAME",                      "部落联盟"),
+    ("zh_Hans_CN",  "LOC_GOVERNMENT_PRIEST_COUNCIL_NAME",                   "祭司会议"),
 
-    ("zh_Hans_CN",  "LOC_DA_GOVERNMENT_CITY_STATE_ALLIANCE_INHERENT_BONUS", "选择该政体后，立刻获得对应传承效果。"),
-    ("zh_Hans_CN",  "LOC_DA_GOVERNMENT_TRIBE_UNITY_INHERENT_BONUS",         "选择该政体后，立刻获得对应传承效果。"),
-    ("zh_Hans_CN",  "LOC_DA_GOVERNMENT_CITY_STATE_ALLIANCE_BONUS",          "向城邦派出的首个 [ICON_Envoy] 使者将被视作2个 [ICON_Envoy] 使者。完成城邦的任务时额外奖励1个派出的 [ICON_Envoy] 使者。"),
-    ("zh_Hans_CN",  "LOC_DA_GOVERNMENT_TRIBE_UNITY_BONUS",                  "征服野蛮人营地后，附近的野蛮人单位会向你称臣。"),
+    ("zh_Hans_CN",  "LOC_DA_GOVERNMENT_CITY_STATE_ALLIANCE_INHERENT_BONUS", "城邦共主执政时，额外+3影响力积累，并从派往城邦的每个 [ICON_Envoy] 使者获得1 [icon_gold] 金币。"),
+    ("zh_Hans_CN",  "LOC_DA_GOVERNMENT_TRIBE_UNITY_INHERENT_BONUS",         "部落联盟执政时，远古战斗单位+4 [ICON_STRENGTH] 战斗力。"),
+    ("zh_Hans_CN",  "LOC_DA_GOVERNMENT_PRIEST_COUNCIL_INHERENT_BONUS",      "祭司会议执政时，圣地+50%相邻加成。"),
+
+    ("zh_Hans_CN",  "LOC_DA_GOVERNMENT_CITY_STATE_ALLIANCE_BONUS",          "选择城邦共主作为初始政体后，向不是你的文明首个发现的城邦派遣1名 [ICON_Envoy] 使者；完成城邦的任务时额外奖励1个派出的 [ICON_Envoy] 使者。"),
+    ("zh_Hans_CN",  "LOC_DA_GOVERNMENT_TRIBE_UNITY_BONUS",                  "选择部落联盟作为初始政体后，征服蛮族哨站会让附近的野蛮人单位向你称臣。"),
+    ("zh_Hans_CN",  "LOC_DA_GOVERNMENT_PRIEST_COUNCIL_BONUS",               "选择祭司议会作为初始政体后，你可以从友好文明处购买其 [ICON_Religion] 万神殿，或者将 [ICON_FAITH] 信仰值转化为 [ICON_GREATPROPHET] 大预言家点数。"),
+
+    ("zh_Hans_CN",  "LOC_ABILITY_TRIBE_STRENGTH_NAME",                      "部落执政"),
+    ("zh_Hans_CN",  "LOC_ABILITY_TRIBE_STRENGTH_DESCRIPTION",               "部落联盟执政时，所有远古单位+4 [ICON_STRENGTH] 战斗力。"),
+    ("zh_Hans_CN",  "LOC_TRIBE_STRENGTH_PREVIEW_TEXT",                      "来自部落执政"),
 
 
     ("zh_Hans_CN",  "LOC_GOVERNMENT_INHERENT_BONUS",                        "执政效果"),

@@ -1,7 +1,7 @@
-
+--删除艳后商路加成  删除埃及原河流加速  删除拉美西斯原能力
 delete from TraitModifiers where TraitType = 'TRAIT_LEADER_MEDITERRANEAN' and ModifierId like '%_TRADE_%';
 delete from TraitModifiers where TraitType = 'TRAIT_CIVILIZATION_ITERU' and ModifierId like 'TRAIT_RIVER_FASTER%';
-
+delete from TraitModifiers where TraitType = 'TRAIT_LEADER_RAMSES';
 
 create table "Egypt_Allies"(
 'TraitType' TEXT NOT NULL,
@@ -9,7 +9,7 @@ create table "Egypt_Allies"(
 PRIMARY KEY('TraitType','ModifierId')
 );
 
-
+--重做艳后 地中海新年能力
 insert or replace into Egypt_Allies (TraitType,	ModifierId)
 		select TraitType,	ModifierId
 	from TraitModifiers where TraitType  <> 'TRAIT_LEADER_MAJOR_CIV';
@@ -59,7 +59,7 @@ insert or replace into RequirementSetRequirements(RequirementSetId,		Requirement
 	('RS_MEDITERRANEAN_WITH_ONE_ALLY',		'REQ_PLAYER_IS_LEADER_CLEOPATRA'),
 	('RS_MEDITERRANEAN_WITH_ONE_ALLY',		'REQ_PLAYER_HAS_BUILDING_FLAG_NO_2_ALLIES');
 
-
+--重做ua 古尼罗河
 
 insert or replace into TraitModifiers(TraitType,	ModifierId) select
 	'TRAIT_CIVILIZATION_ITERU',		'ITERU_RIVER_'||numbers||'_FASTER_DISTRICT'	
@@ -110,6 +110,7 @@ select	'RS_RIVER_COUNT_'||numbers,				'REQ_RIVER_COUNT_'||numbers
 from counter where numbers >= 1 and numbers <= 10;
 
 
+--UI狮身人面像
 update Improvements set 
 	SameAdjacentValid = 1,
 	OnePerCity = 1

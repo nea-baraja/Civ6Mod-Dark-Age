@@ -282,8 +282,8 @@ function ConfirmPantheon()
 		--tParameters[PlayerOperations.PARAM_BELIEF_TYPE] = GameInfo.Beliefs['BELIEF_STONE_CIRCLES'].Hash;
 		--tParameters[PlayerOperations.PARAM_BELIEF_TYPE] = GameInfo.Beliefs['BELIEF_EARTH_GODDESS'].Hash;
 		tParameters[PlayerOperations.PARAM_INSERT_MODE] = PlayerOperations.VALUE_EXCLUSIVE ;
-		UI.RequestPlayerOperation(Game.GetLocalPlayer(), PlayerOperations.FOUND_PANTHEON, tParameters);
 		GameEvents.SetPlayerProperty.Call(iPlayer,	'PROP_PANTHEON_ACTIVATED',	1);
+		UI.RequestPlayerOperation(Game.GetLocalPlayer(), PlayerOperations.FOUND_PANTHEON, tParameters);
 		UI.PlaySound("Confirm_Religion");
 
 		NewClose();
@@ -324,8 +324,54 @@ function PantheonForAI(iPlayer)
 end
 
 
+-- ===========================================================================
+
+
+--[[function AIChoosePantheon()
+	if GameInfo.Governments['GOVERNMENT_PRIEST_COUNCIL'] == nil then
+		print('not da')
+		return;
+	end
+	print(1)
+	local Godhoods = DB.Query('SELECT * FROM Godhood');
+	print(1)
+	local Powers = DB.Query('SELECT * FROM Power');
+	print(1)
+	for _, player in ipairs(Game.GetAliveMajors()) do
+		print(2)
+		local pReligion = player:GetReligion();
+		print(2)
+		local iPantheon = pReligion:GetPantheon();
+		print(2)
+		if iPantheon == nil or iPantheon == -1 then
+			print(3)
+			local iFaithBalance = pReligion:GetFaithBalance();
+			print(3)
+			local iFaithThreshold = GameInfo.GlobalParameters['RELIGION_PANTHEON_MIN_FAITH'].Value;
+			print(3)
+			if iFaithBalance > tonumber(iFaithThreshold) + 10 then -- 10 !
+			print(3)
+				GameEvents.GetRandNum.Call(#Godhoods, 'Godhoods');
+				local iGodhood = Game.GetProperty('Godhoods');
+				local sGodhood = GameInfo.Godhood[iGodhood].GodhoodType;
+				GameEvents.GetRandNum.Call(#Powers, 'Powers');
+				local iPower = Game.GetProperty('Powers');
+				local sPower = GameInfo.Godhood[iPower].PowerType;
+				print('BELIEF_'..sGodhood..'_WITH_'..sPower..'  for AI')
+				tParameters[PlayerOperations.PARAM_BELIEF_TYPE] = GameInfo.Beliefs['BELIEF_'..sGodhood..'_WITH_'..sPower].Hash;
+				tParameters[PlayerOperations.PARAM_INSERT_MODE] = PlayerOperations.VALUE_EXCLUSIVE ;
+				UI.RequestPlayerOperation(player:GetID(), PlayerOperations.FOUND_PANTHEON, tParameters);
+			end
+		end
+	end
+end
+
+
+
+Events.TurnBegin(AIChoosePantheon);]]
 
 -- ===========================================================================
+
 function NewClose()
 	if not ContextPtr:IsHidden() and not Controls.PantheonChooserSlideAnim:IsReversing() then
 		Controls.PantheonChooserSlideAnim:SetToEnd();

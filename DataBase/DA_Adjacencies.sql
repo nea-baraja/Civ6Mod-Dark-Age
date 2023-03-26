@@ -12,15 +12,15 @@ delete from District_Adjacencies
       or YieldChangeId = 'Government_Science'
       or YieldChangeId = 'Geothermal_Science'
       --圣地
-      or YieldChangeId = 'NaturalWonder_Faith'
-      or YieldChangeId = 'Mountain_Faith1'
-      or YieldChangeId = 'Mountain_Faith2'
-      or YieldChangeId = 'Mountain_Faith3'
-      or YieldChangeId = 'Mountain_Faith4'
-      or YieldChangeId = 'Mountain_Faith5'
-      or YieldChangeId = 'Forest_Faith'
-      or YieldChangeId = 'District_Faith'
-      or YieldChangeId = 'Government_Faith'
+      or (YieldChangeId  = 'NaturalWonder_Faith' and DistrictType = 'DISTRICT_HOLY_SITE')
+      or (YieldChangeId  = 'Mountain_Faith1' and DistrictType = 'DISTRICT_HOLY_SITE')
+      or (YieldChangeId  = 'Mountain_Faith2' and DistrictType = 'DISTRICT_HOLY_SITE')
+      or (YieldChangeId  = 'Mountain_Faith3' and DistrictType = 'DISTRICT_HOLY_SITE')
+      or (YieldChangeId  = 'Mountain_Faith4' and DistrictType = 'DISTRICT_HOLY_SITE')
+      or (YieldChangeId  = 'Mountain_Faith5' and DistrictType = 'DISTRICT_HOLY_SITE')
+      or (YieldChangeId  = 'Forest_Faith' and DistrictType = 'DISTRICT_HOLY_SITE')
+      or (YieldChangeId  = 'District_Faith' and DistrictType = 'DISTRICT_HOLY_SITE')
+      or (YieldChangeId  = 'Government_Faith' and DistrictType = 'DISTRICT_HOLY_SITE')
       --商业港口共享
     --  or YieldChangeId = 'District_Gold'
     --  or YieldChangeId = 'Government_Gold'

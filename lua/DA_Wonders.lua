@@ -88,7 +88,10 @@ function BuilderResumeWithPryamid(playerID, unitID, newCharges, oldCharges)
 	end
 end
 
-Events.UnitChargesChanged.Add(BuilderResumeWithPryamid);
+Events.LoadGameViewStateDone.Add(function()
+	Events.UnitChargesChanged.Add(BuilderResumeWithPryamid);
+end)
+
 
 --大浴场触发事件
 function GreatBathEventOccurred(type:number, severity:number, plotx:number, ploty:number, mitigationLevel:number, randomEventID:number, gameCorePlaybackEventID:number) 

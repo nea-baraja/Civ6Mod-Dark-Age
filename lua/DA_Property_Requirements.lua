@@ -134,23 +134,7 @@ end
 Events.TurnBegin.Add(OnTurnBegin);
 Events.CityAddedToMap.Add(AmenityPropertyManager)
 
-function Tier0GovernmentSet(playerID)
-    local player = Players[playerID]
-    local govID = player:GetCulture():GetCurrentGovernment()
-    local govType = GameInfo.Governments[govID].GovernmentType
-    if Utils.GetPlayerProperty(playerID, 'PROP_GOVERNMENT_TIER_0') ~= nil then
-        print('not first gov0')
-        return
-    end
-    if govType == 'GOVERNMENT_CITY_STATE_ALLIANCE' then
-        GameEvents.SetPlayerProperty.Call(playerID, 'PROP_GOVERNMENT_TIER_0', 'GOVERNMENT_CITY_STATE_ALLIANCE')
-        Utils.PlayerAttachModifierByID(playerID, 'CITY_STATE_ALLIANCE_FIRST_DOUBLE_ENVOY')
-    end
-    if govType == 'GOVERNMENT_TRIBE_UNITY' then
-        GameEvents.SetPlayerProperty.Call(playerID, 'PROP_GOVERNMENT_TIER_0', 'GOVERNMENT_TRIBE_UNITY')
-    end
-    print('first gov0 '..govType)
-end
+
 
 
 
@@ -160,7 +144,6 @@ function GovernmentChanged(playerID)
     local govID = player:GetCulture():GetCurrentGovernment()
     if govID ==nil or govID == -1 then return; end
     local govType = GameInfo.Governments[govID].GovernmentType
-    Tier0GovernmentSet(playerID)
     OligarchyCitizenFoodCostRefresh(playerID,   govType)
     GovernmentLegacyManager(playerID)
 end
@@ -217,32 +200,7 @@ function OligarchyCitizenFoodCostRefresh(playerID,  govType)
     end
 end
 
-function CityStateAllianceDoubleQuestEnvoy( CityStateID, CompletedQuestPlayerID)
-    local pCityState = Players[CityStateID]
-    local pPlayer = Players[CompletedQuestPlayerID]
-    if(pCityState == nil or pPlayer == nil) then return end
-    local sGov0Type = Utils.GetPlayerProperty(CompletedQuestPlayerID, 'PROP_GOVERNMENT_TIER_0')
-    if sGov0Type == 'GOVERNMENT_CITY_STATE_ALLIANCE' then
-        local iFirstMeet = Utils.GetPlayerProperty(CompletedQuestPlayerID, 'FIRST_MEET_CITYSTATE_'..CityStateID)
-        if iFirstMeet == nil then
-            GameEvents.SetPlayerProperty.Call(CompletedQuestPlayerID, 'FIRST_MEET_CITYSTATE_'..CityStateID, 0)
-            return
-        end
-        local era = Game.GetEras():GetCurrentEra()
-        local iFinishedThisEra = Utils.GetPlayerProperty(CompletedQuestPlayerID, era..'ERA_FINISHED_CITYSTATE_'..CityStateID)
-        if iFinishedThisEra == 1 then
-            print('just era change')
-            return
-        end
-        GameEvents.SetPlayerProperty.Call(CompletedQuestPlayerID, era..'ERA_FINISHED_CITYSTATE_'..CityStateID, 1)
-        GameEvents.SendEnvoytoCityState.Call(CompletedQuestPlayerID, CityStateID)
-        print('double envoy')
-    end
-end
 
-
-
-Events.QuestChanged.Add( CityStateAllianceDoubleQuestEnvoy );
 
 
 function CivicCompletedInitialPolicy( player:number, civic:number, isCanceled:boolean)

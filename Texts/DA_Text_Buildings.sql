@@ -28,6 +28,7 @@ values
     ("zh_Hans_CN",  "LOC_BUILDING_TEMPLE_ARTEMIS_DESCRIPTION",                  "6个单元格内可以建造营地的单元格立刻获得营地。"),    
     ("zh_Hans_CN",  "LOC_BUILDING_GREAT_BATH_DESCRIPTION",                      "沿河的区域+1 [ICON_Amenities] 宜居度。所在河流洪水不再造成灾害，洪水带来的产出减半，但每次洪水都会为本城的泛滥平原+1 [ICON_FAITH] 信仰值。6个单元格内的洪水会为你触发“洪水之后”事件。"),    
     ("zh_Hans_CN",  "LOC_BUILDING_ORACLE_DESCRIPTION",                          "招募伟人会提供其 [ICON_GreatPerson] 伟人点数要求一半的 [ICON_Faith] 信仰值。"),    
+    ("zh_Hans_CN",  "LOC_BUILDING_HANGING_GARDENS_DESCRIPTION",                 "陆地上的区域会获得其所在地形的基础 [ICON_Food] 食物产出。（如草原上的学院会+2 [ICON_Food] 食物）"),    
 
     ("zh_Hans_CN",  "LOC_BUILDING_GRANARY_GRASS_FOOD",                          "+{1_num} [ICON_Food] 食物来自相邻草原单元格。"),
     ("zh_Hans_CN",  "LOC_BUILDING_GRANARY_PLAINS_FOOD",                         "+{1_num} [ICON_Food] 食物来自相邻平原单元格。"),

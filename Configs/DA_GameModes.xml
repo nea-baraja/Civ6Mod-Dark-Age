@@ -13,7 +13,7 @@
 		<Row GameModeType="GAMEMODE_EVENT_TEST" Name="LOC_GAMEMODE_EVENT_TEST_NAME" Description="LOC_GAMEMODE_EVENT_TEST_DESCRIPTION" Portrait="GAMEMODE_TREE_RANDOMIZER_NEUTRAL" Background="GAMEMODE_TREE_RANDOMIZER_BACKGROUND" Icon="ICON_GAMEMODE_EVENT_TEST" SortIndex="10"/>
 	</GameModeItems>
 	-->
-	<Parameters>
+<!-- 	<Parameters>
 		<Row Key1="Ruleset" Key2="RULESET_EXPANSION_2" ParameterId="GameMode_Darkage_Test" Name="LOC_GAMEMODE_DA_TEST_NAME" Description="LOC_GAMEMODE_DA_TEST_DESCRIPTION" Domain="bool" DefaultValue="0" ConfigurationGroup="Game" ConfigurationId="GAMEMODE_DA_TEST" NameArrayConfigurationId="GAMEMODES_ENABLED_NAMES" GroupId="GameModes" SortIndex="201"/>
 	</Parameters>
 	<ParameterCriteria>
@@ -24,7 +24,7 @@
 	</ParameterDependencies>
 	<GameModeItems>
 		<Row GameModeType="GAMEMODE_DA_TEST" Name="LOC_GAMEMODE_DA_TEST_NAME" Description="LOC_GAMEMODE_DA_TEST_DESCRIPTION" Portrait="GAMEMODE_TREE_RANDOMIZER_NEUTRAL" Background="GAMEMODE_TREE_RANDOMIZER_BACKGROUND" Icon="ICON_GAMEMODE_DA_TEST" SortIndex="11"/>
-	</GameModeItems>
+	</GameModeItems> -->
 
 
 </GameData>

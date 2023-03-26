@@ -11,4 +11,6 @@ values
     ("zh_Hans_CN",  "LOC_DYNASTY_CHANGE_TITLE",                                      "中国发生了朝代更替！"),
     ("zh_Hans_CN",  "LOC_DYNASTY_CHANGE_DESCRIPTION",                                "原先的{1_Dy_Name}王朝不得人心，现在是{2_Dy_Name}王朝入主中原的时候了，让我们祝{2_Dy_Name}王朝千秋万代，国祚永延！"),
     ("zh_Hans_CN",  "LOC_DYNASTY_BEGIN_TITLE",                                       "中国建立了王朝！"),
-    ("zh_Hans_CN",  "LOC_DYNASTY_BEGIN_DESCRIPTION",                                 "禅让领袖的时代已经结束，中国的第一个王朝终于建立，史称“{1_Dy_Name}”王朝。");
+    ("zh_Hans_CN",  "LOC_DYNASTY_BEGIN_DESCRIPTION",                                 "禅让领袖的时代已经结束，中国的第一个王朝终于建立，史称“{1_Dy_Name}”王朝。"),
+    ("zh_Hans_CN",  "LOC_PURCHASE_PANTHEON_TITLE",                                   "可购买万神殿"),
+    ("zh_Hans_CN",  "LOC_PURCHASE_PANTHEON_DESCRIPTION",                             "你已与{1_CivName}进行过友好交流，可以购买其万神殿。");

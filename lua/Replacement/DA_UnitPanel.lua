@@ -673,7 +673,7 @@ function OnGreatPersonActivated(unitOwner, unitID, greatPersonClassID, greatPers
     if owner:IsAI() then
         -- Only need to handle AI activation since player activation will be handled in OnUnitActionClicked.
         -- GreatPersonUtils.HandleActivation(unitOwner, unitID, greatPersonIndividualID);
-        GameEvents.GreatPersonHandleActivation.Call(unitOwner, unitID, greatPersonIndividualID);
+        --GameEvents.GreatPersonHandleActivation.Call(unitOwner, unitID, greatPersonIndividualID);
     end
 end
 

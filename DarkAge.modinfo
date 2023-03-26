@@ -12,14 +12,14 @@
 
 
 
-    <Criteria id="DaEvent">
+<!--     <Criteria id="DaEvent">
       <RuleSetInUse>RULESET_EXPANSION_2</RuleSetInUse>
       <ConfigurationValueMatches>
         <ConfigurationId>GAMEMODE_DA_TEST</ConfigurationId>
         <Group>Game</Group>
         <Value>1</Value>
       </ConfigurationValueMatches>
-    </Criteria>
+    </Criteria> -->
 
 
 </ActionCriteria>
@@ -158,7 +158,7 @@
 
     <UpdateDatabase id="Beliefs">
     <Properties><LoadOrder>28303</LoadOrder></Properties>
-      <Criteria>DaEvent</Criteria>
+      <!-- <Criteria>DaEvent</Criteria> -->
         <File>DataBase/DA_Beliefs.sql</File>
     </UpdateDatabase>
 
@@ -168,11 +168,11 @@
         <File>DataBase/DA_Patron_Saints.sql</File>
     </UpdateDatabase>
 
-    <UpdateDatabase id="Religions">
+  <!--   <UpdateDatabase id="Religions">
     <Properties><LoadOrder>28303</LoadOrder></Properties>
       <Criteria>DaEvent</Criteria>
         <File>DataBase/DA_Religions.sql</File>
-    </UpdateDatabase>
+    </UpdateDatabase> -->
 
     <UpdateDatabase id="Pantheons">
     <Properties><LoadOrder>28303</LoadOrder></Properties>
@@ -224,6 +224,11 @@
     <UpdateDatabase id="Major">
     <Properties><LoadOrder>29000</LoadOrder></Properties>
         <File>MajorCivs/DA_Aztec.sql</File>
+    </UpdateDatabase>
+
+    <UpdateDatabase id="Major">
+    <Properties><LoadOrder>29000</LoadOrder></Properties>
+        <File>MajorCivs/DA_Sumeria.sql</File>
     </UpdateDatabase>
 
     <UpdateDatabase id="Major">
@@ -301,7 +306,7 @@
 
     <UpdateText id="Beliefs">
     <Properties><LoadOrder>28403</LoadOrder></Properties>
-      <Criteria>DaEvent</Criteria>
+      <!-- <Criteria>DaEvent</Criteria> -->
         <File>Texts/DA_Text_Beliefs.sql</File>
     </UpdateText>
     <UpdateText id="Pantheons">
@@ -363,7 +368,12 @@
       </Properties>
       <File>lua/DA_Misc.lua</File>
     </AddGameplayScripts>
-
+    <AddGameplayScripts id="AI">
+      <Properties>
+        <LoadOrder>28199</LoadOrder>
+      </Properties>
+      <File>lua/DA_AI.lua</File>
+    </AddGameplayScripts>
     <AddUserInterfaces id="Function">
       <Properties>
         <Context>InGame</Context>
@@ -374,6 +384,10 @@
     <ImportFiles id="Function">
       <Properties><LoadOrder>28199</LoadOrder></Properties>
       <File>lua/DA_Misc_UI.lua</File>
+    </ImportFiles>
+
+    <ImportFiles id="Nontifications">
+      <File>lua/Notification/NotificationPanel_DA.lua</File>
     </ImportFiles>
 
     <AddUserInterfaces id="Aztec">
@@ -400,6 +414,12 @@
       <File>MajorCivs/DA_Egypt.lua</File>
     </ImportFiles>
 
+    <AddGameplayScripts id="Function">
+      <Properties>
+        <LoadOrder>28200</LoadOrder>
+      </Properties>
+      <File>MajorCivs/DA_Sumeria.lua</File>
+    </AddGameplayScripts>
 
     <AddGameplayScripts id="Function">
       <Properties>
@@ -419,13 +439,13 @@
       </Properties>
       <File>lua/DA_GreatPeople.lua</File>
     </AddGameplayScripts>
-      <AddGameplayScripts id="Religions">
+<!--       <AddGameplayScripts id="Religions">
       <Criteria>DaEvent</Criteria>
       <Properties>
         <LoadOrder>28200</LoadOrder>
       </Properties>
       <File>lua/DA_Religion.lua</File>
-    </AddGameplayScripts>
+    </AddGameplayScripts> -->
     <AddUserInterfaces id="Governments">
       <Properties>
         <Context>InGame</Context>
@@ -625,6 +645,11 @@
         <File>Events/lua/EventPopup.xml</File>
     </ImportFiles>
 
+    <AddGameplayScripts id="Event">
+      <Properties><LoadOrder>30000</LoadOrder></Properties>      
+      <File>Events/lua/NEA_AIEventHandler.lua</File>
+    </AddGameplayScripts>
+
     <ReplaceUIScript id="Command">
       <Properties>
         <LoadOrder>150001</LoadOrder>
@@ -738,6 +763,7 @@
         <File>Texts/DA_Text_Nontifications.sql</File>
         <File>lua/DA_Misc.lua</File>
         <File>lua/DA_Utils.lua</File>
+        <File>lua/DA_AI.lua</File>
         <File>lua/DA_GovernmentQuests.lua</File>
         <File>lua/DA_GovernmentQuests.xml</File>
         <File>lua/DA_GreatPerson_Competition.xml</File>
@@ -800,6 +826,9 @@
         <File>lua/Replacement/GovernorDetailsPanel.xml</File>
         <File>lua/Replacement/DA_UnitPanel.lua</File>
         <File>lua/DA_UnitCommandDefs.lua</File>   
+        <File>lua/Notification/NotificationPanel_DA.lua</File>
+        <File>MajorCivs/DA_Sumeria.sql</File>
+        <File>MajorCivs/DA_Sumeria.lua</File>
 
         <File>MajorCivs/DA_Aztec.xml</File>
         <File>MajorCivs/DA_Aztec.sql</File>
@@ -812,6 +841,7 @@
         <File>DataBase/DA_Civics.sql</File>
         <File>DataBase/DA_Techs.sql</File>
         <File>Events/lua/NEA_EventBuilder.lua</File>
+        <File>Events/lua/NEA_AIEventHandler.lua</File>
         <File>Events/Texts/NEA_Text_GoodyEvents.sql</File>
         <File>Events/lua/NEA_GoodyEvents.lua</File>
         <File>Events/lua/NEA_BarbEvents.lua</File>

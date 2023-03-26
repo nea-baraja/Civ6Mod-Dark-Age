@@ -2,7 +2,7 @@
 <AssetObjects..GameDependencyData>
 	<ID>
 		<name text="art for da"/>
-		<id text="236af578-08bc-4278-ab57-c700ab114515"/>
+		<id text="c7308c9a-912b-4ffa-9c07-f464535ac421"/>
 	</ID>
 	<RequiredGameArtIDs>
 		<Element>
@@ -20,7 +20,10 @@
 		<Element>
 			<ConsumerName text="Audio"/>
 			<ArtDefDependencyPaths>
+				<Element text="Improvements.artdef"/>
+				<Element text="Resources.artdef"/>
 				<Element text="Units.artdef"/>
+				<Element text="Clutter.artdef"/>
 			</ArtDefDependencyPaths>
 			<LibraryDependencies/>
 			<LoadsLibraries>false</LoadsLibraries>
@@ -41,7 +44,9 @@
 		</Element>
 		<Element>
 			<ConsumerName text="Clutter"/>
-			<ArtDefDependencyPaths/>
+			<ArtDefDependencyPaths>
+				<Element text="Clutter.artdef"/>
+			</ArtDefDependencyPaths>
 			<LibraryDependencies>
 				<Element text="Landmark"/>
 			</LibraryDependencies>
@@ -116,19 +121,28 @@
 		</Element>
 		<Element>
 			<ConsumerName text="Improvements"/>
-			<ArtDefDependencyPaths/>
+			<ArtDefDependencyPaths>
+				<Element text="Improvements.artdef"/>
+			</ArtDefDependencyPaths>
 			<LibraryDependencies/>
 			<LoadsLibraries>false</LoadsLibraries>
 		</Element>
 		<Element>
 			<ConsumerName text="IndirectGrid"/>
-			<ArtDefDependencyPaths/>
+			<ArtDefDependencyPaths>
+				<Element text="Improvements.artdef"/>
+			</ArtDefDependencyPaths>
 			<LibraryDependencies/>
 			<LoadsLibraries>false</LoadsLibraries>
 		</Element>
 		<Element>
 			<ConsumerName text="Landmarks"/>
-			<ArtDefDependencyPaths/>
+			<ArtDefDependencyPaths>
+				<Element text="Improvements.artdef"/>
+				<Element text="Landmarks.artdef"/>
+				<Element text="Resources.artdef"/>
+				<Element text="Clutter.artdef"/>
+			</ArtDefDependencyPaths>
 			<LibraryDependencies>
 				<Element text="CityBuildings"/>
 				<Element text="TileBase"/>
@@ -195,7 +209,10 @@
 		</Element>
 		<Element>
 			<ConsumerName text="Resources"/>
-			<ArtDefDependencyPaths/>
+			<ArtDefDependencyPaths>
+				<Element text="Resources.artdef"/>
+				<Element text="Clutter.artdef"/>
+			</ArtDefDependencyPaths>
 			<LibraryDependencies/>
 			<LoadsLibraries>false</LoadsLibraries>
 		</Element>
@@ -262,7 +279,9 @@
 		</Element>
 		<Element>
 			<ConsumerName text="StrategicView_Translate"/>
-			<ArtDefDependencyPaths/>
+			<ArtDefDependencyPaths>
+				<Element text="Improvements.artdef"/>
+			</ArtDefDependencyPaths>
 			<LibraryDependencies/>
 			<LoadsLibraries>false</LoadsLibraries>
 		</Element>
@@ -307,7 +326,9 @@
 		</Element>
 		<Element>
 			<ConsumerName text="UnitSimulation"/>
-			<ArtDefDependencyPaths/>
+			<ArtDefDependencyPaths>
+				<Element text="Improvements.artdef"/>
+			</ArtDefDependencyPaths>
 			<LibraryDependencies/>
 			<LoadsLibraries>false</LoadsLibraries>
 		</Element>
@@ -371,12 +392,26 @@
 		</Element>
 		<Element>
 			<ConsumerName text="WorldView_Translate"/>
-			<ArtDefDependencyPaths/>
+			<ArtDefDependencyPaths>
+				<Element text="Improvements.artdef"/>
+				<Element text="Resources.artdef"/>
+				<Element text="Clutter.artdef"/>
+			</ArtDefDependencyPaths>
 			<LibraryDependencies/>
 			<LoadsLibraries>false</LoadsLibraries>
 		</Element>
 	</SystemDependencies>
 	<ArtDefDependencies>
+		<Element>
+			<ArtDefPath text="Improvements.artdef"/>
+			<ArtDefDependencyPaths/>
+		</Element>
+		<Element>
+			<ArtDefPath text="Resources.artdef"/>
+			<ArtDefDependencyPaths>
+				<Element text="Clutter.artdef"/>
+			</ArtDefDependencyPaths>
+		</Element>
 		<Element>
 			<ArtDefPath text="Units.artdef"/>
 			<ArtDefDependencyPaths>
@@ -386,6 +421,12 @@
 		<Element>
 			<ArtDefPath text="Clutter.artdef"/>
 			<ArtDefDependencyPaths/>
+		</Element>
+		<Element>
+			<ArtDefPath text="Landmarks.artdef"/>
+			<ArtDefDependencyPaths>
+				<Element text="Landmarks.artdef"/>
+			</ArtDefDependencyPaths>
 		</Element>
 	</ArtDefDependencies>
 	<LibraryDependencies>

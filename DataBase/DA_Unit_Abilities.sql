@@ -31,6 +31,7 @@ insert or replace into Types
 values
 
 	('ABILITY_BUILDROAD_MODE',										'KIND_ABILITY'),
+	('ABILITY_TRIBE_STRENGTH',										'KIND_ABILITY'),
 
 	('ABILITY_BARRACK_FARM',											'KIND_ABILITY'),
 	('ABILITY_STABLED_CAMP',											'KIND_ABILITY'),
@@ -47,6 +48,7 @@ insert or replace into TypeTags
 	(Type,																Tag)
 values
 	('ABILITY_BUILDROAD_MODE',										'CLASS_BUILDER'),
+	('ABILITY_TRIBE_STRENGTH',										'CLASS_MILITARY'),
 
 	('ABILITY_BARRACK_FARM',											'CLASS_MELEE'),
 	('ABILITY_BARRACK_FARM',											'CLASS_RANGED'),
@@ -68,9 +70,14 @@ insert or replace into TypeTags	(Type,																Tag) select
 
 
 insert or replace into UnitAbilities (UnitAbilityType, Name, Description, Inactive) values
+
     ('ABILITY_BUILDROAD_MODE',
 		NULL,
 		NULL,
+    1),
+    ('ABILITY_TRIBE_STRENGTH',
+    'LOC_ABILITY_TRIBE_STRENGTH_NAME',
+    'LOC_ABILITY_TRIBE_STRENGTH_DESCRIPTION',
     1),
     ('ABILITY_BARRACK_FARM',
     'LOC_ABILITY_BARRACK_FARM_NAME',
@@ -109,6 +116,8 @@ values
 	('ABILITY_BUILDROAD_MODE',									'BUILDROAD_MODE_IGNORE_TERRAIN'),
 	('ABILITY_BUILDROAD_MODE',									'BUILDROAD_MODE_IGNORE_RIVER'),
 
+	('ABILITY_TRIBE_STRENGTH',									'TRIBE_STRENGTH'	),
+
 	('ABILITY_BARRACK_FARM',										'BARRACK_FARM_FOOD'),
 	('ABILITY_BARRACK_FARM',										'BARRACK_FARM_COST'),
 	('ABILITY_BARRACK_FARM',										'BARRACK_FARM_COST_DISCOUNT'),
@@ -129,6 +138,8 @@ insert or replace into UnitAbilityModifiers(UnitAbilityType,										ModifierId
 insert or replace into Modifiers(ModifierId, 				ModifierType) values
 	('BUILDROAD_MODE_IGNORE_TERRAIN',									'MODIFIER_PLAYER_UNIT_ADJUST_IGNORE_TERRAIN_COST'),
 	('BUILDROAD_MODE_IGNORE_RIVER',										'MODIFIER_PLAYER_UNIT_ADJUST_IGNORE_RIVERS'),
+
+	('TRIBE_STRENGTH',											'MODIFIER_UNIT_ADJUST_COMBAT_STRENGTH'),
 
 
 	('BARRACK_FARM_COST',										'MODIFIER_PLAYER_ADJUST_YIELD_CHANGE'),
@@ -164,6 +175,8 @@ values
 	('BUILDROAD_MODE_IGNORE_TERRAIN',								'Ignore',						1),
 	('BUILDROAD_MODE_IGNORE_TERRAIN',								'Type',							'ALL'),
 	('BUILDROAD_MODE_IGNORE_RIVER',									'Ignore',						1),
+
+	('TRIBE_STRENGTH',														'Amount',							4),	
 
 
 	('BARRACK_FARM_FOOD',														'ModifierId',				'BARRACK_FARM_FOOD_MOD'),
@@ -217,5 +230,6 @@ insert or replace into RequirementSetRequirements(RequirementSetId,	RequirementI
 insert or replace into ModifierStrings
 	(ModifierId,										Context,	Text)
 values
-	('FORGE_WEAPON_STRENGTH_MODIFIER',					'Preview',	'+{1_Amount} {LOC_FORGE_WEAPON_STRENGTH_MODIFIER_PREVIEW_TEXT}');
+	('FORGE_WEAPON_STRENGTH_MODIFIER',					'Preview',	'+{1_Amount} {LOC_FORGE_WEAPON_STRENGTH_MODIFIER_PREVIEW_TEXT}'),
+	('TRIBE_STRENGTH',													'Preview',	'+{1_Amount} {LOC_TRIBE_STRENGTH_PREVIEW_TEXT}');
 

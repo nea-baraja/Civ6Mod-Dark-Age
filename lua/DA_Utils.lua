@@ -87,12 +87,13 @@ GameEvents.RequestChangeFaithBalance.Add(ChangeFaithBalance)
 
 
 function GetCurrentlyBuilding(playerID, cityID)
-    local city = CityManager.GetCity(playerID,    cityID);
+    local city = CityManager.GetCity(playerID, cityID);
     return city:GetBuildQueue():CurrentlyBuilding();
 end
 
 Utils.GetCurrentlyBuilding = GetCurrentlyBuilding;
 --GameEvents.GetCurrentlyBuilding.Add(Get_CurrentlyBuilding)
+
 
 GameEvents.RequestFinishProgress.Add(function(playerID, cityID)
     local city = CityManager.GetCity(playerID,    cityID);    
@@ -205,6 +206,12 @@ GameEvents.ReduceBuildCharge.Add(function(playerID, unitID)
         pUnit:SetProperty('PROP_REDUCE_BUILD_CHARGE', ReduceProperty);
     end
 end)
+
+GameEvents.GetRandNum.Add(function(iMax, sSeed)
+    local iRand = Game.GetRandNum(iMax, sSeed);
+    Game.SetProperty(sSeed, iRand);
+end)
+
 
 Utils.RequestAddWorldView = function (text, iX, iY)
     Game.AddWorldViewText(0,text,iX,iY);

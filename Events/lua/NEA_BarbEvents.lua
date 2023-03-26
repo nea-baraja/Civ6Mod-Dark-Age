@@ -6,8 +6,36 @@ local m_BarbEvents = {};
 
 function OnBarbHutTriggered(iPlayerID :number, iUnitID :number, goodyHutType :number)
 	if goodyHutType ~= m_BarbData then return; end
+	print(iPlayerID..' triggered barb event');
 	m_BarbEvents['EVENT_BARB_TRIBE_UNITE'].Activate(iPlayerID, iUnitID);
 end
+
+-- function OnBarbPillaged(iUnitPlayerID :number, iUnitID :number, eImprovement :number, eBuilding :number, eDistrict :number, iPlotIndex :number)
+-- 	print(1)
+-- 	if(iUnitPlayerID == NO_PLAYER) then
+-- 		return;
+-- 	end
+-- 	print(1)
+
+-- 	local pUnitPlayer :object = Players[iUnitPlayerID];
+-- 	if(pUnitPlayer == nil) then
+-- 		return;
+-- 	end
+-- 	print(1)
+
+-- 	local pUnit :object = UnitManager.GetUnit(iUnitPlayerID, iUnitID);
+-- 	if (pUnit == nil) then
+-- 		return;
+-- 	end
+-- 	print(1)
+
+-- 	if eImprovement == GameInfo.Improvements['IMPROVEMENT_BARBARIAN_CAMP'].Index then
+-- 			print(1)
+
+-- 		m_BarbEvents['EVENT_BARB_TRIBE_UNITE'].Activate(iUnitPlayerID, iUnitID);
+-- 	end
+
+-- end
 
 function OnBarbEventPopupChoice(ePlayer : number, params : table)
 	local iResponseIndex : number = params.ResponseIndex or -1;
@@ -41,7 +69,7 @@ end
 
 GameEvents.UnitTriggerGoodyHut.Add( OnBarbHutTriggered );
 GameEvents.EventPopupChoice.Add( OnBarbEventPopupChoice );	
-
+-- GameEvents.OnPillage.Add(OnBarbPillaged);
 
 m_BarbEvents['EVENT_BARB_TRIBE_UNITE'] = {};
 m_BarbEvents['EVENT_BARB_TRIBE_UNITE'].EventKey = 'EVENT_BARB_TRIBE_UNITE'
@@ -66,8 +94,8 @@ m_BarbEvents['EVENT_BARB_TRIBE_UNITE'].Activate = function(iPlayerID :number, iU
 		end
 	end
 	local pCulture = pPlayer:GetCulture();
-	local bStateLabor = pCulture:HasCivic(GameInfo.Civics['CIVIC_STATE_WORKFORCE'].Index);
-	local bEarlyEmpire = pCulture:HasCivic(GameInfo.Civics['CIVIC_EARLY_EMPIRE'].Index);
+	local bStateLabor = pCulture:HasCivic(GameInfo.Civics['CIVIC_CRAFTSMANSHIP'].Index);
+	local bEarlyEmpire = pCulture:HasCivic(GameInfo.Civics['CIVIC_FOREIGN_TRADE'].Index);
 	local pCity = FindClosestCity(iPlayerID, unitX, unitY);
 	--Save calculation results
 	local SavedData = {};

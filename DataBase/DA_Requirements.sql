@@ -412,11 +412,11 @@ from counter CROSS JOIN DA_District_Yields where numbers >= 1 and numbers <= 20;
 --单位是某类型 REQ/RS
 
 insert or replace into Requirements (RequirementId, RequirementType)
-select 'REQ_UNIT_IS_'||Tag, 'REQUIREMENT_UNIT_TAG_MATCHES'
+	select 'REQ_UNIT_IS_'||Tag, 'REQUIREMENT_UNIT_TAG_MATCHES'
 from Tags where Vocabulary = 'ABILITY_CLASS';
 
 insert or replace into RequirementArguments (RequirementId, Name, Value)
-select 'REQ_UNIT_IS_'||Tag, 'Tag', Tag
+	select 'REQ_UNIT_IS_'||Tag, 'Tag', Tag
 from Tags where Vocabulary = 'ABILITY_CLASS';
 
 insert or ignore into RequirementSets
@@ -428,6 +428,26 @@ insert or ignore into RequirementSetRequirements
     (RequirementSetId,                                  RequirementId)
 select	'RS_UNIT_IS_'||Tag,				'REQ_UNIT_IS_'||Tag
 from Tags where Vocabulary = 'ABILITY_CLASS';
+
+--单位属于某时代
+insert or replace into Requirements (RequirementId, RequirementType)
+	select 'REQ_UNIT_IN_'||EraType, 'REQUIREMENT_UNIT_ERA_TYPE_MATCHES'
+from Eras;
+
+insert or replace into RequirementArguments (RequirementId, Name, Value)
+	select 'REQ_UNIT_IN_'||EraType, 'EraType', EraType
+from Eras;
+
+insert or ignore into RequirementSets
+    (RequirementSetId,                                  RequirementSetType)
+	select	'RS_UNIT_IN_'||EraType,						'REQUIREMENTSET_TEST_ALL'
+from Eras;
+                                   
+insert or ignore into RequirementSetRequirements
+    (RequirementSetId,                                  RequirementId)
+	select	'RS_UNIT_IN_'||EraType,				'REQ_UNIT_IN_'||EraType
+from Eras;
+
 
 
 --对象离自己1-10格 REQ/RS
@@ -1037,7 +1057,9 @@ insert or replace into Requirements (RequirementId, RequirementType) values
 	('REQ_TRIBE_BONUS_1',	'REQUIREMENT_PLOT_PROPERTY_MATCHES'),
 	('REQ_TRIBE_BONUS_2',	'REQUIREMENT_PLOT_PROPERTY_MATCHES'),
 	('REQ_CITYSTATE_BONUS_1','REQUIREMENT_PLOT_PROPERTY_MATCHES'),
-	('REQ_CITYSTATE_BONUS_2','REQUIREMENT_PLOT_PROPERTY_MATCHES');
+	('REQ_CITYSTATE_BONUS_2','REQUIREMENT_PLOT_PROPERTY_MATCHES'),
+	('REQ_PRIEST_BONUS_1','REQUIREMENT_PLOT_PROPERTY_MATCHES'),
+	('REQ_PRIEST_BONUS_2','REQUIREMENT_PLOT_PROPERTY_MATCHES');
 
 insert or replace into RequirementArguments(RequirementId,	Name,	Value) values
 	('REQ_TRIBE_BONUS_1',	'PropertyName',				'PROP_TRIBE_BONUS_MILICARD'),
@@ -1047,13 +1069,19 @@ insert or replace into RequirementArguments(RequirementId,	Name,	Value) values
 	('REQ_CITYSTATE_BONUS_1',	'PropertyName',				'PROP_CITYSTATE_BONUS_MILICARD'),
 	('REQ_CITYSTATE_BONUS_1',	'PropertyMinimum',			1),
 	('REQ_CITYSTATE_BONUS_2',	'PropertyName',				'PROP_CITYSTATE_BONUS_ECOCARD'),
-	('REQ_CITYSTATE_BONUS_2',	'PropertyMinimum',			1);
+	('REQ_CITYSTATE_BONUS_2',	'PropertyMinimum',			1),
+	('REQ_PRIEST_BONUS_1',	'PropertyName',				'PROP_PRIEST_BONUS_MILICARD'),
+	('REQ_PRIEST_BONUS_1',	'PropertyMinimum',			1),
+	('REQ_PRIEST_BONUS_2',	'PropertyName',				'PROP_PRIEST_BONUS_ECOCARD'),
+	('REQ_PRIEST_BONUS_2',	'PropertyMinimum',			1);
 
 insert or replace into RequirementSets(RequirementSetId,	RequirementSetType) values
 	('RS_TRIBE_BONUS_1',			'REQUIREMENTSET_TEST_ALL'),
 	('RS_TRIBE_BONUS_2',			'REQUIREMENTSET_TEST_ALL'),
 	('RS_CITYSTATE_BONUS_1',			'REQUIREMENTSET_TEST_ALL'),
-	('RS_CITYSTATE_BONUS_2',			'REQUIREMENTSET_TEST_ALL');
+	('RS_CITYSTATE_BONUS_2',			'REQUIREMENTSET_TEST_ALL'),
+	('RS_PRIEST_BONUS_1',			'REQUIREMENTSET_TEST_ALL'),
+	('RS_PRIEST_BONUS_2',			'REQUIREMENTSET_TEST_ALL');
 
 insert or replace into RequirementSetRequirements(RequirementSetId,		RequirementId) values
 	('RS_TRIBE_BONUS_1',	'REQ_TRIBE_BONUS_1'),
@@ -1063,8 +1091,11 @@ insert or replace into RequirementSetRequirements(RequirementSetId,		Requirement
 	('RS_CITYSTATE_BONUS_1',	'REQ_CITYSTATE_BONUS_1'),
 	('RS_CITYSTATE_BONUS_1',	'REQ_CITY_HAS_BUILDING_PALACE'),
 	('RS_CITYSTATE_BONUS_2',	'REQ_CITYSTATE_BONUS_2'),
-	('RS_CITYSTATE_BONUS_2',	'REQ_CITY_HAS_BUILDING_PALACE');
-
+	('RS_CITYSTATE_BONUS_2',	'REQ_CITY_HAS_BUILDING_PALACE'),
+	('RS_PRIEST_BONUS_1',	'REQ_PRIEST_BONUS_1'),
+	('RS_PRIEST_BONUS_1',	'REQ_CITY_HAS_BUILDING_PALACE'),
+	('RS_PRIEST_BONUS_2',	'REQ_PRIEST_BONUS_2'),
+	('RS_PRIEST_BONUS_2',	'REQ_CITY_HAS_BUILDING_PALACE');
 --玩家有xx trait
 insert or ignore into RequirementArguments (RequirementId, Name, Value)
 	select 'REQ_PLAYER_IS_' || CivilizationType, 'CivilizationType'	, CivilizationType from Civilizations;
@@ -1084,3 +1115,13 @@ insert or ignore into RequirementSets (RequirementSetId, RequirementSetType)
 	select 'RS_PLAYER_IS_' || LeaderType, 'REQUIREMENTSET_TEST_ANY' from Leaders;
 insert or ignore into RequirementSetRequirements (RequirementSetId, RequirementId)
 	select 'RS_PLAYER_IS_' || LeaderType, 'REQ_PLAYER_IS_' || LeaderType from Leaders;
+
+
+
+
+
+
+
+
+
+

@@ -1383,30 +1383,49 @@ function RealizeActivePoliciesRows()
         lockCardInst.LockPolicyLabel:SetText('[ICON_Exclamation]不可用[NEWLINE][NEWLINE]部落联盟执政时，累计遭遇5个部落村庄后解锁。已遭遇'..iGoody..'个。');   
       end       
     elseif govType == 'GOVERNMENT_CITY_STATE_ALLIANCE' then
-      local iTradeSuz = pPlayer:GetProperty('PROP_TRADE_SUZ') or 0;
-      local iMiliSuz = pPlayer:GetProperty('PROP_MILI_SUZ') or 0;
-      if iMiliSuz == 0 then
+      local iFinishedQuest = pPlayer:GetProperty('PROP_QUEST_COUNT') or 0;
+      local iLevyCount = pPlayer:GetProperty('PROP_LEVY_COUNT') or 0;
+      if iLevyCount < 2 then
         local lockCardInst = {};
         ContextPtr:BuildInstanceForControl("LockCard", lockCardInst, Controls.StackMilitary);
         lockCardInst.DragPolicyLabel:SetHide(true);
         lockCardInst.TypeIcon:SetTexture(GetEmptyPolicySlotTexture(1));
         lockCardInst[KEY_DRAG_TARGET_CONTROL] = lockCardInst.Content;
         lockCardInst[KEY_LIFTABLE_CONTROL]    = lockCardInst.LiftableContainer;
-        lockCardInst.LockPolicyLabel:SetText('[ICON_Exclamation]不可用[NEWLINE][NEWLINE]城邦共主执政时，成为一个军事城邦的宗主后解锁。');      
+        lockCardInst.LockPolicyLabel:SetText('[ICON_Exclamation]不可用[NEWLINE][NEWLINE]城邦共主执政时，征兆2次城邦军队解锁。已进行'..iLevyCount..'次征兆。');      
       end
-      if iTradeSuz == 0 then
+      if iFinishedQuest < 2 then
         local lockCardInst = {};
         ContextPtr:BuildInstanceForControl("LockCard", lockCardInst, Controls.StackEconomic);
         lockCardInst.DragPolicyLabel:SetHide(true);
         lockCardInst.TypeIcon:SetTexture(GetEmptyPolicySlotTexture(2));
         lockCardInst[KEY_DRAG_TARGET_CONTROL] = lockCardInst.Content;
         lockCardInst[KEY_LIFTABLE_CONTROL]    = lockCardInst.LiftableContainer;
-        lockCardInst.LockPolicyLabel:SetText('[ICON_Exclamation]不可用[NEWLINE][NEWLINE]城邦共主执政时，成为一个商业城邦的宗主后解锁。');   
+        lockCardInst.LockPolicyLabel:SetText('[ICON_Exclamation]不可用[NEWLINE][NEWLINE]城邦共主执政时，完成两次城邦任务解锁。已完成'..iFinishedQuest..'次城邦任务。');   
+      end
+    elseif govType == 'GOVERNMENT_PRIEST_COUNCIL' then
+      local bReligionFounded = pPlayer:GetProperty('PROP_RELIGION_FOUNDED') or 0;
+      local iPurchaseCount = pPlayer:GetProperty('PROP_PURCHASE_PANTHEON_COUNT') or 0;
+      if bReligionFounded ~= 1 and iPurchaseCount < 3 then
+        local lockCardInst = {};
+        ContextPtr:BuildInstanceForControl("LockCard", lockCardInst, Controls.StackMilitary);
+        lockCardInst.DragPolicyLabel:SetHide(true);
+        lockCardInst.TypeIcon:SetTexture(GetEmptyPolicySlotTexture(1));
+        lockCardInst[KEY_DRAG_TARGET_CONTROL] = lockCardInst.Content;
+        lockCardInst[KEY_LIFTABLE_CONTROL]    = lockCardInst.LiftableContainer;
+        lockCardInst.LockPolicyLabel:SetText('[ICON_Exclamation]不可用[NEWLINE][NEWLINE]祭司会议执政时，创建宗教或引入三次万神殿解锁。已引入'..iPurchaseCount..'次万神殿。');      
+
+        local lockCardInst_ = {};
+        ContextPtr:BuildInstanceForControl("LockCard", lockCardInst_, Controls.StackEconomic);
+        lockCardInst_.DragPolicyLabel:SetHide(true);
+        lockCardInst_.TypeIcon:SetTexture(GetEmptyPolicySlotTexture(2));
+        lockCardInst_[KEY_DRAG_TARGET_CONTROL] = lockCardInst_.Content;
+        lockCardInst_[KEY_LIFTABLE_CONTROL]    = lockCardInst_.LiftableContainer;
+        lockCardInst_.LockPolicyLabel:SetText('[ICON_Exclamation]不可用[NEWLINE][NEWLINE]祭司会议执政时，创建宗教或引入三次万神殿解锁。已引入'..iPurchaseCount..'次万神殿。');   
       end
     end            
-
   end
-  
+
   RealizeActivePolicyRowSize();
 
   -- Update row decorations (counters, tooltips, labels)
@@ -1506,7 +1525,6 @@ function RealizeActivePoliciesRows()
   if(IsReadOnly()) then
     Controls.UnlockPolicies:SetDisabled(true);
   end
-
 end
 
 function RealizeActivePolicyRowSize()

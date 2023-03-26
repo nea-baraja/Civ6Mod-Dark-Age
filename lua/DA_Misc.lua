@@ -38,6 +38,7 @@ Events.UnitCaptured.Add(EagleWarriorCaptureVuilderBonus)
 ]]
 -- ===========================================================================
 -- ===========================================================================
+--铺路 game play部分
 m_BuildModeEnabled = {};
 
 GameEvents.DA_BuildRoads.Add(function(playerID : number, unitID : number)
@@ -157,4 +158,70 @@ end
 
 Events.TurnBegin.Add(OnTurnBeginBuildMode);
 Events.LoadScreenClose.Add(OnLoadScreenCloseBuildMode);
+
+--GameEvents.RequestChangeFaithBalance.Call(2,21)
+----------------------------------------------------------------
+
+--信仰造奇观 game play部分
+GameEvents.DA_FaithBuildWonder.Add(function(playerID : number, unitID : number)
+    --local playerID = pUnit:GetOwner();
+    local pUnit = UnitManager.GetUnit(playerID, unitID);
+    local player = Players[playerID];
+    local iX, iY = pUnit:GetX(), pUnit:GetY();
+    local pPlot = Map.GetPlot(iX, iY);
+    local pCity = Cities.GetPlotPurchaseCity(pPlot);
+    local sCurrent = Utils.GetCurrentlyBuilding(playerID, pCity:GetID());
+    local iCost = GameInfo.Buildings[sCurrent].Cost;
+    local iProductionProgress = Utils.GetCurrentlyBuildingProgress(playerID, pCity:GetID(), GameInfo.Buildings[sCurrent].Index);
+    local iRiverCount = pPlot:GetProperty('PROP_RIVER_COUNT') or 0;
+    local iFaithNeeded = (iCost - iProductionProgress) * 2 / (1 + iRiverCount * 0.1);
+    local iFaithBalance = player:GetReligion():GetFaithBalance();
+    player:GetReligion():ChangeFaithBalance(-iFaithNeeded);
+    GameEvents.RequestAddProgress.Call(playerID, pCity:GetID(), iFaithNeeded+1);
+    --SimUnitSystem.SetAnimationState(pUnit, "ACTION_1", "IDLE");
+    GameEvents.ReduceBuildCharge.Call(playerID, unitID);
+end)
+
+
+-- function CityStateClearBarbCamp(playerID,unitID,x,y)
+--     local pPlayer = Players[playerID];
+--     if Utils.IsMinor(playerID) then
+--         local pUnit :object = Players[playerID]:GetUnits():FindID(unitID)
+--         local pPlayer = Players[playerID]
+--         local plotID = Map.GetPlotIndex(x,y)
+--         local pPlot = Map.GetPlot(x,y);
+--         local eImprovement = pPlot:GetImprovementType();
+--         print('reach'..x..'  '..y..'  '..eImprovement)
+--         if eImprovement ~= nil and eImprovement ~= -1 then--and GameInfo.Improvements[eImprovement].ImprovementType == 'IMPROVEMENT_BARBARIAN_CAMP' then
+--            ImprovementBuilder.SetImprovementType(pPlot, -1);
+--         end
+--     end
+-- end
+
+
+-- Events.UnitMoveComplete.Add(CityStateClearBarbCamp)
+
+
+--城邦能清理寨子
+function CityStateClearBarbCamp( playerID:number, unitID:number, worldX:number, worldY:number, worldZ:number, bVisible:boolean, isComplete:boolean )
+    local pPlayer = Players[playerID];
+    if Utils.IsMinor(playerID) then
+        local pUnit :object = Players[playerID]:GetUnits():FindID(unitID)
+        local pPlayer = Players[playerID]
+        local x, y = pUnit:GetX(), pUnit:GetY();
+        local pPlot = Map.GetPlot(x,y);
+        local eImprovement = pPlot:GetImprovementType();
+        --print('reach'..x..'  '..y..'  '..eImprovement)
+        if eImprovement ~= nil and eImprovement ~= -1 and GameInfo.Improvements[eImprovement].ImprovementType == 'IMPROVEMENT_BARBARIAN_CAMP' then
+           ImprovementBuilder.SetImprovementType(pPlot, -1);
+        end
+    end
+end
+Events.UnitSimPositionChanged.Add(CityStateClearBarbCamp)
+
+
+
+
+
+
 

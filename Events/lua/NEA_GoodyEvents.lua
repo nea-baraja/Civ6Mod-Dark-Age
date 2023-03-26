@@ -11,7 +11,7 @@ local m_EventGoodyData = GameInfo.GoodyHutSubTypes["GOODYHUT_EVENT"].Index;
 -- ===========================================================================
 function OnGoodyHutTriggered(iPlayerID :number, iUnitID :number, goodyHutType :number)
 	if goodyHutType ~= m_EventGoodyData then 
-		print(goodyHutType);
+		--print(goodyHutType);
 		return; 
 	end
 	local pUnit :object = UnitManager.GetUnit(iPlayerID, iUnitID);
@@ -19,7 +19,7 @@ function OnGoodyHutTriggered(iPlayerID :number, iUnitID :number, goodyHutType :n
 		return;
 	end
 	local randomEvent = PickEvent(iPlayerID, iUnitID);
-	print(randomEvent);
+	print(iPlayerID..' triggered '..randomEvent);
 	m_GoodyHutEventDefs[randomEvent].Activate(iPlayerID, iUnitID);
 end
 
@@ -396,8 +396,8 @@ m_GoodyHutEventDefs['EVENT_GOODY_ANCIENT_FORTIFICATION'].ACallback = function(kP
 	local SavedData = pPlayer:GetProperty(kParams.EventKey);
 	local pUnit = UnitManager.GetUnit(SavedData.PlayerID, SavedData.UnitID);
 	local oldDamage = pUnit:GetDamage();
-	local randomVal = TerrainBuilder.GetRandomNumber(10, 'Ancient Fortification');    
-	if randomVal > 3 then
+	local randomVal = TerrainBuilder.GetRandomNumber(4, 'Ancient Fortification');    
+	if randomVal > 1 then
 		pUnit:SetDamage(oldDamage + 25);
 		m_GoodyHutEventDefs['EVENT_GOODY_ANCIENT_FORTIFICATION_2'].Activate(SavedData.PlayerID, SavedData.UnitID);
 	else
@@ -474,8 +474,8 @@ m_GoodyHutEventDefs['EVENT_GOODY_ANCIENT_FORTIFICATION_2'].ACallback = function(
 	local SavedData = pPlayer:GetProperty(kParams.EventKey);
 	local pUnit = UnitManager.GetUnit(SavedData.PlayerID, SavedData.UnitID);
 	local oldDamage = pUnit:GetDamage();
-	local randomVal = TerrainBuilder.GetRandomNumber(10, 'Ancient Fortification');    
-	if randomVal > 3 then
+	local randomVal = TerrainBuilder.GetRandomNumber(4, 'Ancient Fortification');    
+	if randomVal > 1 then
 		pUnit:SetDamage(oldDamage + 25);
 		m_GoodyHutEventDefs['EVENT_GOODY_ANCIENT_FORTIFICATION_2'].Activate(SavedData.PlayerID, SavedData.UnitID);
 	else
@@ -678,8 +678,6 @@ end
 
 
 --流浪杂技团
-m_GoodyHutEventDefs['EVENT_GOODY_VAGRANT_ACROBATIC'].Weight=100
-
 m_GoodyHutEventDefs['EVENT_GOODY_VAGRANT_ACROBATIC'].EventKey = 'EVENT_GOODY_VAGRANT_ACROBATIC'
 m_GoodyHutEventDefs['EVENT_GOODY_VAGRANT_ACROBATIC'].Ready = function(iPlayerID :number, iUnitID :number)
     local pUnit : table = UnitManager.GetUnit(iPlayerID, iUnitID)
@@ -740,7 +738,134 @@ m_GoodyHutEventDefs['EVENT_GOODY_VAGRANT_ACROBATIC'].BCallback = function(kParam
      end
 end
 
+--尤里卡（by：ChuanYin）
+m_GoodyHutEventDefs['EVENT_GOODY_EUREKA'].Weight=4;
+m_GoodyHutEventDefs['EVENT_GOODY_EUREKA'].EventKey = 'EVENT_GOODY_EUREKA'
+m_GoodyHutEventDefs['EVENT_GOODY_EUREKA'].Activate = function(iPlayerID :number, iUnitID :number)
+	local sEventKey = 'EVENT_GOODY_EUREKA'
+	local pPlayer = Players[iPlayerID]
+	local playerTechs = pPlayer:GetTechs()
+	--Calculate effect
+	local techlist = {}
+	local era=Game:GetEras():GetCurrentEra();
+	for row in GameInfo.Technologies() do
+		if (GameInfo.Eras[row.EraType].Index==era-1) or (GameInfo.Eras[row.EraType].Index==era) then
+			--if GameInfo.Boosts[row.TechnologyType] ~= nil then
+             table.insert(techlist, row.Index)
+			--end
+        end
+	end
+	local RandomNum=Game.GetRandNum(#techlist, 'EVENT_GOODY_EUREKA') + 1
+	print(RandomNum)
+	local iTech=techlist[RandomNum]
+	print(iTech)
+	local n=0
+	if not playerTechs:HasTech(iTech) then
+		if playerTechs:HasBoostBeenTriggered(iTech) then
+		  n=2
+		else
+		  n=1
+		end
+	else
+		n=3
+	end
 
+
+	if n==1 then
+	    playerTechs:TriggerBoost(iTech);
+	end
+	if n==2 then
+	    playerTechs:SetTech(iTech, true)
+	end
+	if n==3 then
+		local cost = playerTechs:GetResearchCost(iTech);
+		playerTechs:ChangeCurrentResearchProgress(cost*0.5)
+	end
+	unlocks = {};
+	local techname=GameInfo.Technologies[iTech].Name
+	local EffectText = Locale.Lookup('LOC_EVENT_GOODY_EUREKA_EFFECT'); --dynamic EffectText
+
+	if n==1 then
+	  	EffectText = EffectText..Locale.Lookup('LOC_EVENT_GOODY_EUREKA_EFFECT_1', techname);
+	  	unlocks.Effects = {Locale.Lookup("LOC_EVENT_GOODY_EUREKA_1", techname)};
+	  	unlocks.EffectIcons = {{"TECHBOOSTED"}};
+	end
+	if n==2 then
+		EffectText = EffectText..Locale.Lookup('LOC_EVENT_GOODY_EUREKA_EFFECT_2', techname);
+
+		unlocks.Effects = {Locale.Lookup("LOC_EVENT_GOODY_EUREKA_2", techname)};
+		unlocks.EffectIcons = {{"ScienceLarge"}};
+	end
+	if n==3 then
+		EffectText = EffectText..Locale.Lookup('LOC_EVENT_GOODY_EUREKA_EFFECT_3', techname);
+		unlocks.Effects = {Locale.Lookup("LOC_EVENT_GOODY_EUREKA_3", techname, playerTechs:GetResearchCost(iTech)*0.5)};
+		unlocks.EffectIcons = {{"Science"}};
+	end
+	--Call event popup
+	ReportingEvents.Send("EVENT_POPUP_REQUEST", {EventEffect = EffectText, ForPlayer = iPlayerID, EventKey = sEventKey, ContinueText ="LOC_"..sEventKey.."_CONTINUE",Unlocks=unlocks});
+	
+end
+m_GoodyHutEventDefs['EVENT_GOODY_INSPIRATION'].Weight=4;
+m_GoodyHutEventDefs['EVENT_GOODY_INSPIRATION'].EventKey = 'EVENT_GOODY_INSPIRATION'
+m_GoodyHutEventDefs['EVENT_GOODY_INSPIRATION'].Activate = function(iPlayerID :number, iUnitID :number)
+	local sEventKey = 'EVENT_GOODY_INSPIRATION'
+	local pPlayer = Players[iPlayerID]
+	local playerCulture = pPlayer:GetCulture()
+	--Calculate effect
+	local Civlist = {}
+	local era=Game:GetEras():GetCurrentEra();
+	for row in GameInfo.Civics() do
+		if (GameInfo.Eras[row.EraType].Index==era-1) or (GameInfo.Eras[row.EraType].Index==era) then
+	
+			--if GameInfo.Boosts[row.CivicType] ~= nil then
+               table.insert(Civlist, row.Index)
+			--end
+        end
+	end
+	local RandomNum=Game.GetRandNum(#Civlist, 'EVENT_GOODY_INSPIRATION') + 1
+	local iCiv=Civlist[RandomNum]
+	local n=0
+	if not playerCulture:HasCivic(iCiv) then
+		if playerCulture:HasBoostBeenTriggered(iCiv) then
+		  n=2
+		else
+		  n=1
+		end
+	else
+		n=3
+	end
+	if n==1 then
+	    playerCulture:TriggerBoost(iCiv);
+	end
+	if n==2 then
+	    playerCulture:SetCivic(iCiv, true)
+	end
+	if n==3 then
+		local cost = playerCulture:GetCultureCost(iCiv);
+		playerCulture:ChangeCurrentCulturalProgress(cost*0.5)
+	end
+	unlocks = {};
+	local Civname=GameInfo.Civics[iCiv].Name
+	local EffectText = Locale.Lookup('LOC_EVENT_GOODY_INSPIRATION_EFFECT'); --dynamic EffectText
+	if n==1 then
+		EffectText = EffectText..Locale.Lookup('LOC_EVENT_GOODY_INSPIRATION_EFFECT_1', Civname);
+	  	unlocks.Effects = {Locale.Lookup("LOC_EVENT_GOODY_INSPIRATION_1", Civname)};
+	  	unlocks.EffectIcons = {{"CIVICBOOSTED"}};
+	end
+	if n==2 then
+		EffectText = EffectText..Locale.Lookup('LOC_EVENT_GOODY_INSPIRATION_EFFECT_2', Civname);
+		unlocks.Effects = {Locale.Lookup("LOC_EVENT_GOODY_INSPIRATION_2", Civname)};
+		unlocks.EffectIcons = {{"CULTURELarge"}};
+	end
+	if n==3 then
+		EffectText = EffectText..Locale.Lookup('LOC_EVENT_GOODY_INSPIRATION_EFFECT_3', Civname);
+		unlocks.Effects = {Locale.Lookup("LOC_EVENT_GOODY_INSPIRATION_3", Civname,  playerCulture:GetCultureCost(iCiv) * 0.5)};
+		unlocks.EffectIcons = {{"CULTURE"}};
+	end
+	--Call event popup
+	ReportingEvents.Send("EVENT_POPUP_REQUEST", {EventEffect = EffectText, ForPlayer = iPlayerID, EventKey = sEventKey, ContinueText ="LOC_"..sEventKey.."_CONTINUE",Unlocks=unlocks});
+
+end
 
 local EventId = 0;
 for k, v in pairs(m_GoodyHutEventDefs) do
